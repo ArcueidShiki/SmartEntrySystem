@@ -16,6 +16,6 @@ git clone [url]
 2. git diff
 3. git add .
 4. git commit -m "Changes , new update"
-5. git push origin main
-
-
+5. git pull (other people may have changed before you pushing, you are fall behind, you need to update first)
+6. git push origin main
+ 
