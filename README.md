@@ -12,11 +12,10 @@ Disadvantages: Requires power supply, needs a reliable internet connection
  
 ## How contribute
 git clone [url]
-1. codeing
+1. coding
 2. git diff
 3. git add .
 4. git commit -m "Changes , new update"
-5. git push orgin main
+5. git push origin main
 
 
-gmdflak
