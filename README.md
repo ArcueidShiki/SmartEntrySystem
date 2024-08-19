@@ -10,3 +10,10 @@ Applications: Railways, Airports, Offices, Public Spaces
 Advantages: Fully automated, real-time result display
 Disadvantages: Requires power supply, needs a reliable internet connection
  
+## How contribute
+git clone [url]
+1. codeing
+2. git diff
+3. git add .
+4. git commit -m "Changes , new update"
+5. git push orgin main
