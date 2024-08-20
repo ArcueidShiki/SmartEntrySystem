@@ -15,22 +15,28 @@
 3. Why do you want to do this project; What is the problem? What is the benefit of its solution? What is the impact of the solution?
 
     **Why Do You Want to Do This Project?**<br>
-    The motivation for this project stems from the inefficiencies and challenges observed in the current methods of temperature screening and mask compliance checks in China, especially during the COVID-19 pandemic. Manual temperature checks at entry points, particularly in high-traffic areas like workplaces, have proven to be slow and inefficient. Typically, only one staff member is stationed at an entrance, leading to bottlenecks and delays. Moreover, this manual approach cannot prevent individuals from bypassing the screening process, which poses a significant risk to public health. With the ongoing normalization of COVID-19, there is a critical need for a more efficient and reliable solution that can be integrated into daily operations without requiring extensive human resources.
+    Temperature has been recognized as a key indicator of COVID-19 and flu. The World Health Organization (WHO) has emphasized the importance of temperature screening as an effective method to detect potential cases early[1]. Additionally, WHO recommends using masks as one of the simplest and cheapest measures to prevent the transmission of viruses[2]. 
+    
+    Many of our group members have working experience in Greater China. 
+    During the COVID-19 pandemic, we all observed the inefficiencies and challenges in temperature screening and mask compliance checks. Manual temperature checks at entry points, especially in high-traffic areas like workplaces and airports, have proven to be slow and inefficient.Typically, only one staff is at an entrance gate, causing severe delays.
+
+    With the ongoing normalization of COVID-19[3], there is a critical need for an efficient and reliable solution that can detect abnormal temperature and protect public health.
 
     **What Is the Problem?**<br>
-    The primary issue with the current manual temperature screening process is its inefficiency and unreliability. Personnel are often not well trained in using temperature scanners, which leads to frequent human errors in reading temperature values. These errors can result in individuals with higher temperatures or without masks being allowed entry. Additionally, the manual process is highly dependent on the presence and vigilance of the staff. If supervisors are not watching, the scanning process might be skipped altogether, which further undermines the effectiveness of the health screening. During peak hours, such as the start of the workday, the influx of people makes it difficult for a single person to manage the screening process efficiently. This not only slows down entry but also wastes valuable human resources that could be better utilized elsewhere.
-
+    
+    The primary problem with the current manual temperature screening process is inefficiency and unreliability. During peak hours, such as the start of the workday, it's difficult for a single staff to manage the screening process efficiently. Adding more staff will be a waste of human resource, because the peak hour usually doesn't last long. Staffs often need to be trained to use scanners, which could lead to human errors in reading values. As a result, individuals with higher temperatures could be allowed to entry. Additionally, the manual process is highly dependent on the presence and responsibility of the staff. If supervisors are not watching, the scanning process might be skipped. Moreover, this manual approach can't prevent individuals from bypassing the screening process, which increases the risk to public health. 
 
     **What Is the Benefit of Its Solution?**<br>
-    The proposed solution—a fully automated temperature scanner and entry control system—addresses these problems by eliminating the need for human intervention in the screening process. The system uses a contactless temperature sensor and a camera to monitor mask compliance, both connected to a Raspberry Pi, which controls the entire operation. This automation ensures that each individual is screened quickly and accurately without the risk of human error. By integrating the system with a barrier mechanism, it can also physically prevent entry for those who do not meet the necessary health criteria, such as having a high temperature or not wearing a mask.
+    
+    Our smart entry system uses a contactless temperature sensor and a camera to monitor mask compliance, both connected to a Raspberry Pi, which controls the entire operation. This automation ensures that each individual is screened quickly and accurately without the risk of human error. By integrating the system with a gate system, it can also physically prevent entry for those who do not meet the necessary health conditions, such as having a high temperature or not wearing a mask. In this way, public health is ensured.
 
-    This automated system can be installed at multiple entry points, significantly increasing the speed and efficiency of the screening process, especially during peak times. This not only improves the flow of people entering the premises but also ensures that health protocols are consistently enforced. Additionally, the system frees up personnel from the monotonous task of manual screening, allowing them to focus on more critical tasks.
+    This automated system can be installed at multiple entry points, significantly increasing the speed and efficiency of the screening process, especially during peak hours. Moreover, the system frees staff from manual work, allowing them to focus on more meaningful tasks.
 
     **What Is the Impact of the Solution?**<br>
-    The impact of this automated system is substantial, particularly in environments with high foot traffic, such as offices, airports, and public spaces. By automating the health screening process, the system enhances the accuracy and reliability of temperature checks and mask compliance, reducing the risk of COVID-19 transmission and other infectious diseases. The system’s ability to operate multiple units simultaneously at different entry points ensures that large crowds can be managed efficiently, without compromising safety.
+    
+    In high-traffic environments such as offices, airports, and public spaces, the system increases the efficiency and reliability of temperature checks and mask compliance. As a result, the system can reduce the risk of COVID-19 transmission and other infectious diseases, which ensures public health. 
 
-    Moreover, the integration of IoT capabilities allows the system to transmit real-time data to a central server, enabling authorities to monitor the situation and respond swiftly if a potential case is detected. This real-time monitoring capability is crucial for maintaining public safety and mitigating the spread of diseases. Overall, the solution not only addresses the current inefficiencies in manual health screening but also provides a scalable, reliable, and efficient system that can be adapted to various high-traffic settings, ultimately contributing to a safer and healthier environment.
-
+    Moreover, the integration of IoT capabilities allows the system to transmit real-time data to a central server. With this data, health department can monitor the situation and respond promptly if a potential case is detected and ultimately contributes to a healthier environment.
 
 4. What are the existing solutions? (Literature Review)
 
@@ -54,3 +60,9 @@
 
 
 9. References
+
+    [1] World Health Organization. (2020). “Considerations for implementing and adjusting public health and social measures in the context of COVID-19.” WHO.
+    
+    [2] World Health Organization. (2020). “Advice on the use of masks in the context of COVID-19: Interim guidance.” WHO.
+
+    [3] World Health Organization. (2022). “COVID-19: Endemic does not mean it’s harmless.” WHO.
