@@ -385,7 +385,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="KR3_7UHlFYzC7LTaU2YQ" name="status diagram">
-    <mxGraphModel dx="714" dy="312" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1499" dy="655" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -418,10 +418,11 @@
             <mxPoint x="-12" y="-30" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="LtVpQhGH5DXBJA70SW93-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="LtVpQhGH5DXBJA70SW93-14" target="LtVpQhGH5DXBJA70SW93-1">
+        <mxCell id="LtVpQhGH5DXBJA70SW93-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="LtVpQhGH5DXBJA70SW93-46" target="LtVpQhGH5DXBJA70SW93-1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="570" y="190" />
+              <mxPoint x="670" y="880" />
+              <mxPoint x="670" y="190" />
               <mxPoint x="360" y="190" />
             </Array>
           </mxGeometry>
