@@ -75,7 +75,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="FHRo0koj6ilt4YAGi9Yn" name="sequence diagram">
-    <mxGraphModel dx="797" dy="351" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1154" dy="509" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -143,16 +143,16 @@
         <mxCell id="QjpgvyxD9soHx6lmHtPM-16" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="QjpgvyxD9soHx6lmHtPM-2">
           <mxGeometry x="45" y="50" width="10" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="QjpgvyxD9soHx6lmHtPM-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=0;entryX=0.497;entryY=0.785;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="QjpgvyxD9soHx6lmHtPM-9">
+        <mxCell id="QjpgvyxD9soHx6lmHtPM-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=0;entryX=0.497;entryY=0.785;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="65" y="540" as="sourcePoint" />
-            <mxPoint x="809.5" y="520" as="targetPoint" />
+            <mxPoint x="67.65" y="540" as="sourcePoint" />
+            <mxPoint x="812.35" y="541.1" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="413" y="541" />
+              <mxPoint x="415.65" y="541" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="QjpgvyxD9soHx6lmHtPM-33" value="Send Image or VIdeo Stream through Wifi on UI" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="QjpgvyxD9soHx6lmHtPM-32">
+        <mxCell id="QjpgvyxD9soHx6lmHtPM-33" value="Send Processed Image or VIdeo Stream through Wifi, display on UI" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="QjpgvyxD9soHx6lmHtPM-32">
           <mxGeometry x="-0.6818" y="-2" relative="1" as="geometry">
             <mxPoint x="156" y="-12" as="offset" />
           </mxGeometry>
