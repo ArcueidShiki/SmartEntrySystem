@@ -75,30 +75,119 @@
     </mxGraphModel>
   </diagram>
   <diagram id="FHRo0koj6ilt4YAGi9Yn" name="sequence diagram">
-    <mxGraphModel dx="1154" dy="509" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="797" dy="351" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="QjpgvyxD9soHx6lmHtPM-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="59.928571428571445" y="240" as="sourcePoint" />
+            <mxPoint x="189.5" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="QjpgvyxD9soHx6lmHtPM-13" value="read" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="QjpgvyxD9soHx6lmHtPM-10">
+          <mxGeometry x="-0.0088" relative="1" as="geometry">
+            <mxPoint y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
         <mxCell id="QjpgvyxD9soHx6lmHtPM-1" value="Raspberry Pi" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
-          <mxGeometry x="10" y="180" width="100" height="300" as="geometry" />
+          <mxGeometry x="10" y="180" width="100" height="460" as="geometry" />
+        </mxCell>
+        <mxCell id="QjpgvyxD9soHx6lmHtPM-15" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="QjpgvyxD9soHx6lmHtPM-1">
+          <mxGeometry x="45" y="50" width="10" height="400" as="geometry" />
+        </mxCell>
+        <mxCell id="QjpgvyxD9soHx6lmHtPM-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=0;" edge="1" parent="QjpgvyxD9soHx6lmHtPM-1" target="QjpgvyxD9soHx6lmHtPM-30">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="65" y="130" as="sourcePoint" />
+            <mxPoint x="65" y="160" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="100" y="130" />
+              <mxPoint x="100" y="210" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="QjpgvyxD9soHx6lmHtPM-21" value="is normal temp ?" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="QjpgvyxD9soHx6lmHtPM-20">
+          <mxGeometry x="-0.5505" relative="1" as="geometry">
+            <mxPoint x="27" y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="QjpgvyxD9soHx6lmHtPM-25" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="QjpgvyxD9soHx6lmHtPM-20">
+          <mxGeometry x="0.592" y="2" relative="1" as="geometry">
+            <mxPoint x="14" y="-52" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="QjpgvyxD9soHx6lmHtPM-30" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="QjpgvyxD9soHx6lmHtPM-1">
+          <mxGeometry x="55" y="130" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="QjpgvyxD9soHx6lmHtPM-35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=0;" edge="1" parent="QjpgvyxD9soHx6lmHtPM-1" target="QjpgvyxD9soHx6lmHtPM-37">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="55" y="250" as="sourcePoint" />
+            <mxPoint x="70" y="330" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="80" y="250" />
+              <mxPoint x="80" y="330" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="QjpgvyxD9soHx6lmHtPM-40" value="Process Images or Video Stream with CNN and OpenCV" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="QjpgvyxD9soHx6lmHtPM-35">
+          <mxGeometry x="-0.2222" relative="1" as="geometry">
+            <mxPoint x="140" y="-12" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="QjpgvyxD9soHx6lmHtPM-37" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="QjpgvyxD9soHx6lmHtPM-1">
+          <mxGeometry x="55" y="250" width="10" height="80" as="geometry" />
         </mxCell>
         <mxCell id="QjpgvyxD9soHx6lmHtPM-2" value="IR sensor" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
-          <mxGeometry x="140" y="180" width="100" height="300" as="geometry" />
+          <mxGeometry x="140" y="180" width="100" height="460" as="geometry" />
+        </mxCell>
+        <mxCell id="QjpgvyxD9soHx6lmHtPM-16" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="QjpgvyxD9soHx6lmHtPM-2">
+          <mxGeometry x="45" y="50" width="10" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="QjpgvyxD9soHx6lmHtPM-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=0;entryX=0.497;entryY=0.785;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="QjpgvyxD9soHx6lmHtPM-9">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="65" y="540" as="sourcePoint" />
+            <mxPoint x="809.5" y="520" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="413" y="541" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="QjpgvyxD9soHx6lmHtPM-33" value="Send Image or VIdeo Stream through Wifi on UI" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="QjpgvyxD9soHx6lmHtPM-32">
+          <mxGeometry x="-0.6818" y="-2" relative="1" as="geometry">
+            <mxPoint x="156" y="-12" as="offset" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="QjpgvyxD9soHx6lmHtPM-3" value="Camera" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
-          <mxGeometry x="270" y="180" width="100" height="300" as="geometry" />
-        </mxCell>
-        <mxCell id="QjpgvyxD9soHx6lmHtPM-4" value="Backend Server / CNN Model" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
-          <mxGeometry x="400" y="180" width="100" height="300" as="geometry" />
+          <mxGeometry x="270" y="180" width="100" height="460" as="geometry" />
         </mxCell>
         <mxCell id="QjpgvyxD9soHx6lmHtPM-7" value="LED" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
-          <mxGeometry x="530" y="180" width="100" height="300" as="geometry" />
+          <mxGeometry x="510" y="180" width="100" height="460" as="geometry" />
         </mxCell>
         <mxCell id="QjpgvyxD9soHx6lmHtPM-8" value="Motor" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
-          <mxGeometry x="660" y="180" width="100" height="300" as="geometry" />
+          <mxGeometry x="640" y="180" width="100" height="460" as="geometry" />
         </mxCell>
-        <mxCell id="QjpgvyxD9soHx6lmHtPM-9" value="UI / Frontend" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
-          <mxGeometry x="780" y="180" width="100" height="300" as="geometry" />
+        <mxCell id="QjpgvyxD9soHx6lmHtPM-9" value="UI / Frontend / Monitor" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="760" y="180" width="100" height="460" as="geometry" />
+        </mxCell>
+        <mxCell id="QjpgvyxD9soHx6lmHtPM-22" value="return" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="185" y="260" as="sourcePoint" />
+            <mxPoint x="65" y="260" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="QjpgvyxD9soHx6lmHtPM-31" value="Wifi Module" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="390" y="180" width="100" height="460" as="geometry" />
+        </mxCell>
+        <mxCell id="QjpgvyxD9soHx6lmHtPM-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=0;" edge="1" parent="1" target="QjpgvyxD9soHx6lmHtPM-3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="60" y="410" as="sourcePoint" />
+            <mxPoint x="317.25" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="QjpgvyxD9soHx6lmHtPM-39" value="Capture Image or Video Stream" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="QjpgvyxD9soHx6lmHtPM-38">
+          <mxGeometry x="-0.5129" y="2" relative="1" as="geometry">
+            <mxPoint x="72" y="-8" as="offset" />
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
