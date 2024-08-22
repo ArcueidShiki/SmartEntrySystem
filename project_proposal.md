@@ -119,6 +119,22 @@ Our research amis to address the need for automated influenza prevention measure
 
 **(6). System UML diagram:**
 
+ - Usercases:
+
+![](docs/diagrams/Usercases.drawio.svg)
+
+- Sequence
+
+![](docs/diagrams/Sequence.drawio.svg)
+
+- Components
+
+![](docs/diagrams/Components.drawio.svg)
+
+- Status
+
+![](docs/diagrams/Status.drawio.svg)
+
 ## 6 Functionality.
 
 As sub teams are made, and project divided into tasks for sub teams then write initial distribution of work among students by mutual discussion (as per strengths of the members). You may change it during the project.
