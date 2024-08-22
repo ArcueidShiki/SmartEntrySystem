@@ -51,51 +51,17 @@
 |Tang Fung Leung| User Interface Development & Testing | Tang has experience in agile web development
 
 7. A well-defined timeline related to subsystems should be made. Tasks should be assigned to sub-teams (refer above 8) and Timeline should cater for interdependence (parallel or sequential) of the subsystems.
-    # Smart Entry System Project Timeline
+# Smart Entry System Project Timeline
 
-    **Week 6 - Week 12**
-
-    ---
-
-    ## 1. Week 6
-    - **Task:** Decide Necessary Hardware and Demonstration Method; Front-end and Back-end Design
-    - **Details:** Confirm the required hardware and order it online or obtain it from the university. Finalize the method to present the product, including its subsystems: temperature subsystem, camera subsystem, LCD subsystem, autodoor subsystem, back-end subsystem, front-end subsystem.
-
-    ---
-
-    ## 2. Week 7
-    - **Task:** Preliminary Design of Front-end/Back-end of Website/App
-    - **Details:** Develop a website that can display the temperature and mask-wearing information of the person in a browser.
-
-    ---
-
-    ## 3. Week 8
-    - **Task:** Assemble Hardware and Test It; Code Embedded in Hardware. Final Design of Front-end/Back-end of Website/App
-    - **Details:** Include components such as a contactless temperature sensor and a camera to detect whether a person entering is wearing a mask. Display a pass/reject message on the LCD device. If rejected, a red signal blinks to remind the person to wear a mask and advise them to see a doctor. If approved, allow entry.
-
-    ---
-
-    ## 4. Week 9
-    - **Task:** Connect Hardware to Central Server and Test It
-    - **Details:** Send temperature data and photo data to the central database, analyze it, and send the result back to the hardware.
-
-    ---
-
-    ## 5. Week 10
-    - **Task:** Test the Project and Record Details
-    - **Details:** Record any errors encountered and continue testing.
-
-    ---
-
-    ## 6. Week 11
-    - **Task:** Test the Project and Record Details
-    - **Details:** Continue testing, recording errors, and refining the system.
-
-    ---
-
-    ## 7. Week 12
-    - **Task:** Prepare Slides for Presentation and Rehearse
-    - **Details:** Develop presentation slides and practice the presentation.
+| Week  | Task                                                     | Details                                                                                                               |
+|-------|----------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
+| **6** | Decide Necessary Hardware and Demonstration Method; Front-end and Back-end Design | Confirm the required hardware and order it online or obtain it from the university. Finalize the method to present the product, including its subsystems: Temperature subsystem, camera subsystem, LCD subsystem, autodoor subsystem, back-end subsystem, front-end subsystem. |
+| **7** | Preliminary Design of Front-end/Back-end of Website/App | Develop a website that can display the temperature and mask-wearing information of the person in the browser.        |
+| **8** | Assemble Hardware and Test It; Code Embedded in Hardware. Final Design of Front-end/Back-end of Website/App | Include components such as a contactless temperature sensor and a camera to detect whether a person entering is wearing a mask. Display pass/reject messages on the LCD device, red signal blink, and remind the person to wear a mask or advise them to go to a doctor. If the person is fine, allow entry. |
+| **9** | Connect Hardware to Central Server and Test It          | Send temperature data and photo data to the central database, analyze it, and send the result back to the hardware. |
+| **10**| Test the Project and Record Details                     | Record any errors encountered and continue testing.                                                                   |
+| **11**| Test the Project and Record Details                     | Continue testing, recording errors, and refining the system.                                                           |
+| **12**| Prepare Slides for Presentation and Rehearse            | Develop presentation slides and practice the presentation.                                                             |
 
 8. Hardware required (Each group has $50 budget for the items (not including cost of items and sensors available at UWA)). Due to delivery time consideration, you should choose items from Jaycar and Altronics. Consult Andy our Lab Technician (Email andrew.burrell@uwa.edu.au), as there could be alternate items already at UWA, thus saving the delivery time.
 
