@@ -402,7 +402,7 @@
             <mxPoint x="360" y="410" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="LtVpQhGH5DXBJA70SW93-6" value="" style="ellipse;html=1;shape=startState;fillColor=#000000;strokeColor=#ff0000;" vertex="1" parent="1">
+        <mxCell id="LtVpQhGH5DXBJA70SW93-6" value="&lt;b&gt;ASDASD&lt;/b&gt;" style="ellipse;html=1;shape=startState;fillColor=#000000;strokeColor=#ff0000;" vertex="1" parent="1">
           <mxGeometry x="280" y="100" width="160" height="110" as="geometry" />
         </mxCell>
         <mxCell id="LtVpQhGH5DXBJA70SW93-7" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;verticalAlign=bottom;endArrow=open;endSize=8;strokeColor=#ff0000;rounded=0;" edge="1" source="LtVpQhGH5DXBJA70SW93-6" parent="1">
