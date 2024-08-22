@@ -99,9 +99,16 @@
 
 8. Hardware required (Each group has $50 budget for the items (not including cost of items and sensors available at UWA)). Due to delivery time consideration, you should choose items from Jaycar and Altronics. Consult Andy our Lab Technician (Email andrew.burrell@uwa.edu.au), as there could be alternate items already at UWA, thus saving the delivery time.
 
-|No.|Items Description|Available at UWA (Yes/No)|Cost|Web address|Delivery Time|
-|---|-----------------|-------------------------|----|-----------|-------------|
-|1|
+| No. | Items Description                          | Available at UWA (Yes/No) | Cost  | Web address                                                                                                            | Delivery Time |
+|-----|--------------------------------------------|---------------------------|-------|------------------------------------------------------------------------------------------------------------------------|---------------|
+| 1   | Raspberry Pi                               | Yes                       | $61.95 | [Raspberry Pi 3 Model B+](https://core-electronics.com.au/raspberry-pi-3-model-b-plus.html)                         | 1 day         |
+| 2   | Camera                                     | Yes                       | $36.65 | [Raspberry Pi Camera Board V2 8 Megapixels](https://core-electronics.com.au/raspberry-pi-camera-board-v2-8-megapixels-38552.html) | 1 day         |
+| 3   | Contact-less Infrared Temperature Sensor   | No                        | $50   | [Contact-less Infrared Temperature Sensor](https://core-electronics.com.au/contact-less-infrared-temperature-sensor.html) | 2 weeks       |
+| 4   | Servo Motor                                | Yes                       | $5.45 | [Feetech FS90 1.5kg/cm Micro Servo 9g](https://core-electronics.com.au/feetech-fs90-1-5kgcm-micro-servo-9g.html)     | 2 days        |
+| 5   | LCD Display                                | Yes                       | $23.90 | [Assembled Standard LCD 16x2 Extras White on Blue](https://core-electronics.com.au/assembled-standard-lcd-16x2-extras-white-on-blue.html) | 1 day         |
+| 6   | Jumper Wire                                | Yes                       | $3.20 | [Male to Female Dupont Line 40 Pin 10cm 24AWG](https://core-electronics.com.au/male-to-female-dupont-line-40-pin-10cm-24awg.html) | 1 day         |
+| 7   | HDMI Cable                                 | Yes                       | $5.95 | [HDMI Cable 2m](https://core-electronics.com.au/hdmi-cable-2m.html)                                                   | 1 day         |
+| 8   | Resistor                                   | Yes                       | $     |                                                                                                                        | 1 day         |
 
 
 9. References
