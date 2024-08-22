@@ -75,7 +75,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="FHRo0koj6ilt4YAGi9Yn" name="sequence diagram">
-    <mxGraphModel dx="558" dy="246" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="714" dy="312" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -193,6 +193,22 @@
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="65" y="585" as="sourcePoint" />
             <mxPoint x="560" y="586" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="QjpgvyxD9soHx6lmHtPM-42" value="Control LED" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="QjpgvyxD9soHx6lmHtPM-41">
+          <mxGeometry x="-0.2288" y="1" relative="1" as="geometry">
+            <mxPoint x="14" y="-14" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="QjpgvyxD9soHx6lmHtPM-43" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="65" y="620" as="sourcePoint" />
+            <mxPoint x="690" y="620" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="QjpgvyxD9soHx6lmHtPM-44" value="Control Motor Close or Open" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="QjpgvyxD9soHx6lmHtPM-43">
+          <mxGeometry x="-0.1081" y="2" relative="1" as="geometry">
+            <mxPoint y="-8" as="offset" />
           </mxGeometry>
         </mxCell>
       </root>
