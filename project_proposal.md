@@ -51,7 +51,7 @@
 |Tang Fung Leung| User Interface Development & Testing | Tang has experience in agile web development
 
 7. A well-defined timeline related to subsystems should be made. Tasks should be assigned to sub-teams (refer above 8) and Timeline should cater for interdependence (parallel or sequential) of the subsystems.
-# Smart Entry System Project Timeline
+    # Smart Entry System Project Timeline
 
 | Week  | Task                                                     | Details                                                                                                               |
 |-------|----------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
