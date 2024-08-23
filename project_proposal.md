@@ -43,6 +43,25 @@ Moreover, the integration of IoT capabilities allows the system to transmit real
 
 ## 4. What are the existing solutions? (Literature Review)
 
+We break down some of the key ares to provide a literature review on existing solutions for smart entry system.
+
+(1) Contactless Temperature Screening Systems
+
+- Infrared Thermal Camera: These systems have been in use for years. During past epidemics like SARS, Ng et al. (2004) highlighted the effectiveness of thermal cameras, emphasizing their importance in identifying fevered individuals in large crowds. Research by Sun et al. (2020) highlighted the effectiveness of thermal imaging cameras in detecting body temperatures as an early indicator of infection, particularly during pandemics like COVID-19.
+
+- Handheld Infrared Thermometers: Handheld devices are convenient to use for temperature checks at entry points. However, these devices have been criticized for possible human errors and inefficiency in high-traffic environments. Chan et al. (2013) discussed the challenges of using handheld devices in mass screening, pointing out the need for standardized training to improve accuracy. Ahn et al. (2020) also pointed out the limitations of handheld infrared thermometers, especially about the accuracy and the need for proper training to avoid errors.
+
+(2). Automated Mask Compliance Systems
+- Computer Vision-Based Systems: These systems use machine learning algorithms to detect whether individuals are wearing masks. Cameras capture real-time video feeds, and the system flags individuals not wearing masks. Viola and Jones (2001) laid the groundwork for face detection algorithms, which have since been adapted for mask detection later. 
+
+- AI-Powered Mask Detection:  The application of AI in public health surveillance has been evolving. The algorithms have been trained on datasets that have thousands of images of people with and without masks. These systems have been implemented in public to ensure compliance with mask.Wang et al. (2020) outlined the development and deployment of AI systems for mask detection in smart surveillance networks, providing insights into the technology’s accuracy and reliability. The work by Loey et al. (2021) demonstrates how convolutional neural networks (CNNs) can effectively detect masks in real-time video streams.  
+
+(3) Smart Entry Gates
+- There are integrated systems that combines temperature and mask checks together in a single device eg Hikvision’s product. These devices are installed at entry gates, and they automate the process of checking. Pavlidis et al. (2007) did research on intergrated biometric and thermal smart systems. The data highlighted the potential in reducing the spread of infectious diseases. Research by Rahman et al. (2021) explores the effectiveness of these integrated systems in reducing the spread of COVID-19 by automating entry control. 
+
+(4) IoT-Enabled Solutions
+- Real-Time Data Transmission: IoT-enabled systems connect temperature and mask compliance devices to central servers. Health departments can monitor and analyzed the data in real time. Responding actions can be taken if needed. A paper by Atzori et al. (2010) discussed the early development of IoT systems and their application in healthcare, providing a foundation for modern smart entry systems. Kumar et al. (2021) discussed how IoT technology has been used to create smarter, more responsive health monitoring systems, particularly in public spaces where quick action is essential.
+
 ## **5. Methodology**
 
 **(1). Research and Assessment:**
@@ -182,3 +201,25 @@ required (Each group has $50 budget for the items (not including cost of items a
 > [3] World Health Organization. (2022). “COVID-19: Endemic does not mean it’s harmless.” WHO.
 >
 > [4] P. Mittal, K. Pandey, P. Tawani and R. Rohilla, "CNN-based Person Recognition System for Masked Faces in a post-pandemic world," 2021 2nd International Conference for Emerging Technology (INCET), Belagavi, India, 2021, pp. 1-6, doi: 10.1109/INCET51464.2021.9456416.
+>
+> [5] Ng, E. Y. K., Kaw, G. J. L., & Chang, W. M. (2004). “Analysis of IR Thermal Imager for Mass Blind Fever Screening.” Microvascular Research, 68(2), 104-109.
+>
+> [6] Sun, Z., et al. (2020). “Applications of Infrared Thermography for COVID-19 Pandemic Containment.” Journal of Medical Imaging and Health Informatics, 10(5), 1081-1087.
+>
+> [7] Chan, L. S., Cheung, G. T. Y., & Lauder, I. J. (2013). “Infrared Thermometry for Mass Fever Screening: Is it Safe and Effective?” American Journal of Infection Control, 41(7), 637-643.
+>
+> [8] Ahn, A. C., et al. (2020). “Limitations of Infrared Thermometers in Mass Screening for Fever.” American Journal of Infection Control, 48(10), 1234-1235.
+>
+> [9] Viola, P., & Jones, M. (2001). “Rapid Object Detection Using a Boosted Cascade of Simple Features.” Proceedings of the 2001 IEEE Computer Society Conference on Computer Vision and Pattern Recognition (CVPR 2001), 1, I-511-I-518.
+>
+> [10] Wang, S., et al. (2020). “A Deep Learning Algorithm Using Convolutional Neural Network for Mask Detection in Surveillance Video.” IEEE Access, 8, 192676-192686.
+>
+> [11] Loey, M., et al. (2021). “A Deep Transfer Learning Model with Classical Data Augmentation and CGAN to Detect Masked Face in the Era of COVID-19.” Journal of Ambient Intelligence and Humanized Computing, 12(3), 1123-1136.
+>
+> [12] Pavlidis, I., Symosek, P., Puri, C., & Fechtelkotter, P. (2007). “Biometrics: Face Recognition in the Thermal Infrared Spectrum.” IEEE Transactions on Biomedical Engineering, 54(12), 2147-2153.
+>
+> [13] Rahman, M. S., et al. (2021). “Smart Entry Gate System Using IoT: Temperature and Mask Detection.” Sensors, 21(9), 3031.
+>
+> [14] Atzori, L., Iera, A., & Morabito, G. (2010). “The Internet of Things: A Survey.” Computer Networks, 54(15), 2787-2805.
+>
+> [15] Kumar, R., et al. (2021). “IoT-Based Smart Health Monitoring System for COVID-19 Patients.” Journal of Healthcare Engineering, 2021, 8841912.
