@@ -64,9 +64,15 @@ With the ongoing normalization of COVID-19[3], there is a critical need for an e
 
 **(4). What Is the Impact of the Solution?**
 
-In high-traffic environments such as offices, airports, and public spaces, the system increases the efficiency and reliability of temperature checks and mask compliance. As a result, the system can reduce the risk of COVID-19 transmission and other infectious diseases, which ensures public health.
+- **_Wide-reaching Impact Due to Large Population_**: The smart entry system is designed to be implemented in high-traffic public spaces. If used worldwide, millions of people will pass through these devices daily, significantly decreasing the spread of infectious virus. Public health will be ensured on a large scale.
 
-Moreover, the integration of IoT capabilities allows the system to transmit real-time data to a central server. With this data, health department can monitor the situation and respond promptly if a potential case is detected and ultimately contributes to a healthier environment.
+- **_Impact on Workforce Efficiency_**: By automating temperature checks and mask compliance monitoring, the system doesn't require staff to work manually at each entry point. Those staff can devote their time and intelligence to more critical tasks, enhancing overall workplace productivity.
+
+- **_Generating Employment Opportunities_**: The development, manufacturing, installation and maintenance of the Smart Entry System will create new employment opportunities across the world. 
+
+- **_Impact on Global Health Expenditure_**: According to Cutler et al. (2020), the global cost of the COVID-19 pandemic was around $11 trillion as of 2020. There will be $10 trillion more in the following years due to healthcare costs and economic losses. By preventing the spread of infectious virus, the Smart Entry System can reduce the need for medical treatments and therefore save billions in healthcare expenditures worldwide.
+
+- **_Enhancing Societal Well-being and Harmony_**: After the outbreak of COVID-19, people began to suspect their neighbors and coworkers of carrying virus. There were also many debates online, depicting conspiracy theories that certain institutions had created the virus on purpose. The high infection rate led to widespread fear and irrational thinking. By reducing the speed of transmission, the system helps the community to recover trust and foster social harmony.
 
 ## 4. What are the existing solutions? (Literature Review)
 
