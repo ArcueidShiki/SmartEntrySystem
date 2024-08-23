@@ -145,7 +145,7 @@ As sub teams are made, and project divided into tasks for sub teams then write i
 |Jingtong Peng| Hardware researching and development, Design and Architecture| Jingtong has working experience in embedded system programming|
 |Tang Fung Leung| User Interface Development & Testing | Tang has experience in agile web development
 
-7. A well-defined timeline related to subsystems should be made. Tasks should be assigned to sub-teams (refer above 8) and Timeline should cater for interdependence (parallel or sequential) of the subsystems.
+## 7. A well-defined timeline related to subsystems should be made. Tasks should be assigned to sub-teams (refer above 8) and Timeline should cater for interdependence (parallel or sequential) of the subsystems.
     ## Smart Entry System Project Timeline
 
 | Week  | Task                                                     | Details                                                                                                               |
