@@ -28,13 +28,39 @@ With the ongoing normalization of COVID-19[3], there is a critical need for an e
 
 **(2). What Is the Problem?**
 
-The primary problem with the current manual temperature screening process is inefficiency and unreliability. During peak hours, such as the start of the workday, it's difficult for a single staff to manage the screening process efficiently. Adding more staff will be a waste of human resource, because the peak hour usually doesn't last long. Staffs often need to be trained to use scanners, which could lead to human errors in reading values. As a result, individuals with higher temperatures could be allowed to entry. Additionally, the manual process is highly dependent on the presence and responsibility of the staff. If supervisors are not watching, the scanning process might be skipped. Moreover, this manual approach can't prevent individuals from bypassing the screening process, which increases the risk to public health.
+- **_Individual Problems_**:
+
+  a.  <u>Inefficiency During Peak Hours</u>: During peak hours, such as the start of the workday, it's difficult for a single staff to manage the screening process efficiently.
+
+  b.  <u>Human Resource Misallocation</u>: Adding more staff during peak hour will be a waste of human resource, because the peak hour usually doesn't last long. 
+
+  c.  <u>Human Error in Temperature Reading</u>: Staffs often need to be trained to use scanners, which could lead to human errors in reading values. As a result, individuals with higher temperatures could be allowed to entry.
+
+- **_Social Problems_**:  
+
+  a.  <u>Dependence on Staff Accountability</u>: The manual process is highly dependent on the presence and responsibility of the staff. If supervisors are not watching, the scanning process might be skipped. 
+
+  b.  <u> Risk of Screening Bypass</u>: There are always people who try to avoid the checks. The manual approach can't prevent them from bypassing the screening process, which increases the potential for risky entry.
+
+  c.  <u> Public Health Risks</u>: The inefficiency and unreliability of the current manual temperature screening process increase the risk of potential virus transmission, particularly in high-traffic areas, which could lead to serious consequences for public health.
 
 **(3). What Is the Benefit of Its Solution?**
 
-Our smart entry system uses a contactless temperature sensor and a camera to monitor mask compliance, both connected to a Raspberry Pi, which controls the entire operation. This automation ensures that each individual is screened quickly and accurately without the risk of human error. By integrating the system with a gate system, it can also physically prevent entry for those who do not meet the necessary health conditions, such as having a high temperature or not wearing a mask. In this way, public health is ensured.
+- **_Individual Benefits_**:
 
-This automated system can be installed at multiple entry points, significantly increasing the speed and efficiency of the screening process, especially during peak hours. Moreover, the system frees staff from manual work, allowing them to focus on more meaningful tasks.
+  a. <u>Enhanced Screening Accuracy</u>: Our smart entry system uses a contactless temperature sensor and a camera to monitor mask compliance. No manual conduct is involved in the process, which reduces the possibility of human mistakes.
+
+  b. <u>Time Saving</u>: This automation ensures that each individual is screened quickly. By speeding up the screening process, waiting times can be reduced during peak hours.
+
+  c. <u>Human Resource Efficiency</u>: By automating the temperature and mask compliance checks, the system frees staff from manual work, allowing them to focus on more meaningful tasks.
+
+  d.  <u>Physical Entry Control</u>: By integrating the system with a gate system, it can also physically prevent entry for those who do not meet the necessary health conditions, such as having a high temperature or not wearing a mask.
+
+- **_Social Benefits_**:  
+
+  a. <u>Improved Public Health</u>: By ensuring that only individuals who meet the necessary health conditions are allowed to enter, the system reduces the spread of infectious diseases. This contributes to a safer environment in high-traffic areas like offices, airports and protects the community in the long run.
+
+  b. <u>Real-time Health Monitoring</u>: Our system has the ability to transmit real-time data to a central server. Health departments can monitor situation, analyse data, and respond promptly to potential cases. This data-driven approach ultimately will contribute to a healthier and safer public environment.
 
 **(4). What Is the Impact of the Solution?**
 
@@ -200,7 +226,7 @@ required (Each group has $50 budget for the items (not including cost of items a
 >
 > [3] World Health Organization. (2022). “COVID-19: Endemic does not mean it’s harmless.” WHO.
 >
-> [4] P. Mittal, K. Pandey, P. Tawani and R. Rohilla, "CNN-based Person Recognition System for Masked Faces in a post-pandemic world," 2021 2nd International Conference for Emerging Technology (INCET), Belagavi, India, 2021, pp. 1-6, doi: 10.1109/INCET51464.2021.9456416.
+> [4] P. Mittal, K. Pandey, P. Tawani and R. Rohilla (2021), "CNN-based Person Recognition System for Masked Faces in a post-pandemic world," 2021 2nd International Conference for Emerging Technology (INCET), Belagavi, India, pp. 1-6.
 >
 > [5] Ng, E. Y. K., Kaw, G. J. L., & Chang, W. M. (2004). “Analysis of IR Thermal Imager for Mass Blind Fever Screening.” Microvascular Research, 68(2), 104-109.
 >
@@ -223,3 +249,5 @@ required (Each group has $50 budget for the items (not including cost of items a
 > [14] Atzori, L., Iera, A., & Morabito, G. (2010). “The Internet of Things: A Survey.” Computer Networks, 54(15), 2787-2805.
 >
 > [15] Kumar, R., et al. (2021). “IoT-Based Smart Health Monitoring System for COVID-19 Patients.” Journal of Healthcare Engineering, 2021, 8841912.
+>
+> [16] Cutler, D. M., & Summers, L. H. (2020). ‘The COVID-19 Pandemic and the $16 Trillion Virus.’ JAMA, 324(15), 1495–1496.
