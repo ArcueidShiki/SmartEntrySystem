@@ -178,8 +178,11 @@
         </mxCell>
         <mxCell id="QjpgvyxD9soHx6lmHtPM-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;curved=0;" parent="1" target="QjpgvyxD9soHx6lmHtPM-3" edge="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="60" y="410" as="sourcePoint" />
+            <mxPoint x="70" y="411" as="sourcePoint" />
             <mxPoint x="317.25" y="400" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="70" y="410" />
+            </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="QjpgvyxD9soHx6lmHtPM-39" value="Capture Image or Video Stream" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="QjpgvyxD9soHx6lmHtPM-38" vertex="1" connectable="0">
