@@ -112,12 +112,13 @@ Our research amis to address the need for automated influenza prevention measure
   | Items                        | Cost |
   | ---------------------------- | ---- |
   | Infrared Temperature Sensor: | $10  |
-  | Raspberry Pi                 | $0   |
+  | Raspberry Pi 3 Model B+      | $0   |
   | Camera                       | $0   |
   | DC Motor / Servo Motor       | $0   |
   | Camera                       | $0   |
   | Resistors                    | $0   |
   | LED                          | $0   |
+  | LCD                          | $0   |
   | Jumper Wires                 | $0   |
   | Total Cost                   | $10  |
 
@@ -146,11 +147,11 @@ Our research amis to address the need for automated influenza prevention measure
 
 **(3). Hardware Selection:**
 
-- Raspberry Pi
+- [Raspberry Pi 3 Model B+](https://core-electronics.com.au/raspberry-pi-3-model-b-plus.html)
 - DC Motor / Servo Motor
 - [MLX90614 Infrared contactless temeperature sensor](https://www.aliexpress.com/item/1005005796792057.html?src=google&src=google&albch=shopping&acnt=708-803-3821&isdl=y&slnk=&plac=&mtctp=&albbt=Google_7_shopping&aff_platform=google&aff_short_key=UneMJZVf&gclsrc=aw.ds&&albagn=888888&&ds_e_adid=&ds_e_matchtype=&ds_e_device=c&ds_e_network=x&ds_e_product_group_id=&ds_e_product_id=en1005005796792057&ds_e_product_merchant_id=758212040&ds_e_product_country=AU&ds_e_product_language=en&ds_e_product_channel=online&ds_e_product_store_id=&ds_url_v=2&albcp=19373854259&albag=&isSmbAutoCall=false&needSmbHouyi=false&gad_source=1&gclid=Cj0KCQjww5u2BhDeARIsALBuLnObucoDOEMwFGbDHOxcD0_AX_ql3qjFJ_BcMI-25OMw-b-N0VzMzbsaAs6NEALw_wcB)
 - Camera
-- [ESP8266 Wifi Module](https://core-electronics.com.au/wifi-module-esp8266-4mb.html?gad_source=1&gclid=Cj0KCQjww5u2BhDeARIsALBuLnNhEuA19CzafMPlHxN2YyHtDuQzXu0ILG-6-zSYhU-_Q4LTA3dFxXEaAiQDEALw_wcB)
+- LCD
 - Resistors
 - LED(red, green)
 - Jumper Wires
