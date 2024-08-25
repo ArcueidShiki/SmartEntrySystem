@@ -319,7 +319,7 @@
             <mxPoint x="-27" y="7" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="Gmq6YplB2k_XXYcuNW31-17" value="Motor" style="html=1;dropTarget=0;whiteSpace=wrap;" parent="1" vertex="1">
+        <mxCell id="Gmq6YplB2k_XXYcuNW31-17" value="Motor / Gate" style="html=1;dropTarget=0;whiteSpace=wrap;" parent="1" vertex="1">
           <mxGeometry x="600" y="220" width="180" height="90" as="geometry" />
         </mxCell>
         <mxCell id="Gmq6YplB2k_XXYcuNW31-18" value="" style="shape=module;jettyWidth=8;jettyHeight=4;" parent="Gmq6YplB2k_XXYcuNW31-17" vertex="1">
