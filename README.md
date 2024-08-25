@@ -35,12 +35,13 @@ Disadvantages: Requires power supply, needs a reliable internet connection
 5. git commit -m "commit message"
 
 # keep updated with remote main branch to avoid conflict
-6. git rebase origin main
+6. git pull origin main 
+   # or
+   git merge origin main
    # if conflict with some files after running this command do following:
    1. git status # to see which files are conflict
    2. click [resolve] a blue button in vscode editor, compare and merges.
-   3. git rebase --continue
-   4. git status # check all the conflicts are solved, if not, back to step2 until all the conflicts are solved.
+   3. git status # check all the conflicts are solved, if not, back to step2 until all the conflicts are solved.
 
 7. git push origin [remote_branch_name]
 
