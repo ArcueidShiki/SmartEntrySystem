@@ -25,5 +25,19 @@ def send_message(message, server_ip, server_port=1234):
 
 if __name__ == "__main__":
     server_ip = "172.20.10.2"  # Replace with your Raspberry Pi's IP address
-    message = "Hello from Mac"
+    message = """
+client_socket.sendall(f"Angle set to {angle} degrees".encode())
+
+            client_socket.close()
+
+    except Exception as e:
+        print(f"Error: {e}")
+    finally:
+        pwm.stop()
+        GPIO.cleanup()
+        server_socket.close()
+
+if __name__ == "__main__":
+    start_server()
+    """
     send_message(message, server_ip)
