@@ -35,9 +35,14 @@
 **/*.cache
 **/*.editorconfig
 **/obj/
+**/bin/
+**/lib/
 *.sln
 *.csproj
 **/out/
+**/venv/
 **/env/
-**/lib/
-**/bin/
+**/*.jpeg
+**/*.png
+**/*.mp4
+
