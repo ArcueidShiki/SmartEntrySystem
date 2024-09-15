@@ -41,6 +41,7 @@
 *.csproj
 **/out/
 **/venv/
+**/env/
 **/*.jpeg
 **/*.png
 **/*.mp4
