@@ -7,17 +7,18 @@
 **Smart Entry System**
 
 ## 2. Group Number, Names and Student Numbers of team members:
-
+Group Number: 41
 | student id | name                                                     |
 | ---------- | -------------------------------------------------------- |
-| 24323312   | Jingtong Peng                                            |
+|24323312   | Jingtong Peng                                            |
 | 23891727   | Tang Fung Leung                                          |
 | 24177876   | Ming Gao                                                 |
 | 24162835   | Joaquin Cornejo Lema (may drop UWA at the end of August) |
 
-## 3. Why do you want to do this project; What is the problem? What is the benefit of its solution? What is the impact of the solution?
+## 3. Why do you want to do this project? What is the problem? What is the benefit of its solution? What is the impact of the solution?
 
-**Why Do You Want to Do This Project?**<br>
+**(1). Why Do You Want to Do This Project?**
+
 Temperature has been recognized as a key indicator of COVID-19 and flu. The World Health Organization (WHO) has emphasized the importance of temperature screening as an effective method to detect potential cases early[1]. Additionally, WHO recommends using masks as one of the simplest and cheapest measures to prevent the transmission of viruses[2].
 
 Many of our group members have working experience in Greater China.
@@ -25,42 +26,73 @@ During the COVID-19 pandemic, we all observed the inefficiencies and challenges 
 
 With the ongoing normalization of COVID-19[3], there is a critical need for an efficient and reliable solution that can detect abnormal temperature and protect public health.
 
-**What Is the Problem?**<br>
+**(2). What Is the Problem?**
 
-The primary problem with the current manual temperature screening process is inefficiency and unreliability. During peak hours, such as the start of the workday, it's difficult for a single staff to manage the screening process efficiently. Adding more staff will be a waste of human resource, because the peak hour usually doesn't last long. Staffs often need to be trained to use scanners, which could lead to human errors in reading values. As a result, individuals with higher temperatures could be allowed to entry. Additionally, the manual process is highly dependent on the presence and responsibility of the staff. If supervisors are not watching, the scanning process might be skipped. Moreover, this manual approach can't prevent individuals from bypassing the screening process, which increases the risk to public health.
+- **_Individual Problems_**:
 
-**What Is the Benefit of Its Solution?**<br>
+  a.  <u>Inefficiency During Peak Hours</u>: During peak hours, such as the start of the workday, it's difficult for a single staff to manage the screening process efficiently.
 
-Our smart entry system uses a contactless temperature sensor and a camera to monitor mask compliance, both connected to a Raspberry Pi, which controls the entire operation. This automation ensures that each individual is screened quickly and accurately without the risk of human error. By integrating the system with a gate system, it can also physically prevent entry for those who do not meet the necessary health conditions, such as having a high temperature or not wearing a mask. In this way, public health is ensured.
+  b.  <u>Human Resource Misallocation</u>: Adding more staff during peak hour will be a waste of human resource, because the peak hour usually doesn't last long. 
 
-This automated system can be installed at multiple entry points, significantly increasing the speed and efficiency of the screening process, especially during peak hours. Moreover, the system frees staff from manual work, allowing them to focus on more meaningful tasks.
+  c.  <u>Human Error in Temperature Reading</u>: Staffs often need to be trained to use scanners, which could lead to human errors in reading values. As a result, individuals with higher temperatures could be allowed to entry.
 
-**What Is the Impact of the Solution?**<br>
+- **_Social Problems_**:  
 
-In high-traffic environments such as offices, airports, and public spaces, the system increases the efficiency and reliability of temperature checks and mask compliance. As a result, the system can reduce the risk of COVID-19 transmission and other infectious diseases, which ensures public health.
+  a.  <u>Dependence on Staff Accountability</u>: The manual process is highly dependent on the presence and responsibility of the staff. If supervisors are not watching, the scanning process might be skipped. 
 
-Moreover, the integration of IoT capabilities allows the system to transmit real-time data to a central server. With this data, health department can monitor the situation and respond promptly if a potential case is detected and ultimately contributes to a healthier environment.
+  b.  <u> Risk of Screening Bypass</u>: There are always people who try to avoid the checks. The manual approach can't prevent them from bypassing the screening process, which increases the potential for risky entry.
+
+  c.  <u> Public Health Risks</u>: The inefficiency and unreliability of the current manual temperature screening process increase the risk of potential virus transmission, particularly in high-traffic areas, which could lead to serious consequences for public health.
+
+**(3). What Is the Benefit of Its Solution?**
+
+- **_Individual Benefits_**:
+
+  a. <u>Enhanced Screening Accuracy</u>: Our smart entry system uses a contactless temperature sensor and a camera to monitor mask compliance. No manual conduct is involved in the process, which reduces the possibility of human mistakes.
+
+  b. <u>Time Saving</u>: This automation ensures that each individual is screened quickly. By speeding up the screening process, waiting times can be reduced during peak hours.
+
+  c. <u>Human Resource Efficiency</u>: By automating the temperature and mask compliance checks, the system frees staff from manual work, allowing them to focus on more meaningful tasks.
+
+  d.  <u>Physical Entry Control</u>: By integrating the system with a gate system, it can also physically prevent entry for those who do not meet the necessary health conditions, such as having a high temperature or not wearing a mask.
+
+- **_Social Benefits_**:  
+
+  a. <u>Improved Public Health</u>: By ensuring that only individuals who meet the necessary health conditions are allowed to enter, the system reduces the spread of infectious diseases. This contributes to a safer environment in high-traffic areas like offices, airports and protects the community in the long run.
+
+  b. <u>Real-time Health Monitoring</u>: Our system has the ability to transmit real-time data to a central server. Health departments can monitor situation, analyse data, and respond promptly to potential cases. This data-driven approach ultimately will contribute to a healthier and safer public environment.
+
+**(4). What Is the Impact of the Solution?**
+
+- **_Wide-reaching Impact Due to Large Population_**: The smart entry system is designed to be implemented in high-traffic public spaces. If used worldwide, millions of people will pass through these devices daily, significantly decreasing the spread of infectious virus. Public health will be ensured on a large scale.
+
+- **_Impact on Workforce Efficiency_**: By automating temperature checks and mask compliance monitoring, the system doesn't require staff to work manually at each entry point. Those staff can devote their time and intelligence to more critical tasks, enhancing overall workplace productivity.
+
+- **_Generating Employment Opportunities_**: The development, manufacturing, installation and maintenance of the Smart Entry System will create new employment opportunities across the world. 
+
+- **_Impact on Global Health Expenditure_**: According to Cutler et al. (2020), the global cost of the COVID-19 pandemic was around $11 trillion as of 2020. There will be $10 trillion more in the following years due to healthcare costs and economic losses. By preventing the spread of infectious virus, the Smart Entry System can reduce the need for medical treatments and therefore save billions in healthcare expenditures worldwide.
+
+- **_Enhancing Societal Well-being and Harmony_**: After the outbreak of COVID-19, people began to suspect their neighbors and coworkers of carrying virus. There were also many debates online, depicting conspiracy theories that certain institutions had created the virus on purpose. The high infection rate led to widespread fear and irrational thinking. By reducing the speed of transmission, the system helps the community to recover trust and foster social harmony.
 
 ## 4. What are the existing solutions? (Literature Review)
 
 We break down some of the key ares to provide a literature review on existing solutions for smart entry system.
 
-(1) Contactless Temperature Screening Systems
+**(1). Contactless Temperature Screening Systems:**
+- **_Infrared Thermal Camera_**: This piece of equipment has been in use for many years. For example, during SARS, the study by Ng et al. (2004) emphasized the effectiveness of infrared thermometers, especially their ability to effectively identify individuals with fever in large groups in advance. Research by Sun et al. (2020) highlights that high temperatures are often an early indicator of pandemics such as COVID-19 infection, and thermal imaging cameras are effective in detecting body temperature. 
 
-- Infrared Thermal Camera: These systems have been in use for years. During past epidemics like SARS, Ng et al. (2004) highlighted the effectiveness of thermal cameras, emphasizing their importance in identifying fevered individuals in large crowds. Research by Sun et al. (2020) highlighted the effectiveness of thermal imaging cameras in detecting body temperatures as an early indicator of infection, particularly during pandemics like COVID-19.
+- **_Handheld Infrared Thermometers_**: Using handheld devices for body temperature detection in business buildings, airports and other office spaces has the advantages of ease of use. However, these devices often require preliminary training for staff and are prone to manual errors. At the same time, they can easily cause blockages in places with high flow of people, so they have received some criticism. Chan et al (2013) discuss the limitations of using handheld devices in mass screening. They noted the need for standardized training to improve accuracy. Ahn et al. (2020) also mentioned the limitations and lack of accuracy of handheld infrared thermometers. 
 
-- Handheld Infrared Thermometers: Handheld devices are convenient to use for temperature checks at entry points. However, these devices have been criticized for possible human errors and inefficiency in high-traffic environments. Chan et al. (2013) discussed the challenges of using handheld devices in mass screening, pointing out the need for standardized training to improve accuracy. Ahn et al. (2020) also pointed out the limitations of handheld infrared thermometers, especially about the accuracy and the need for proper training to avoid errors.
+**(2). Automated Mask Compliance Systems:**
+- **_Computer Vision-Based Systems_**: Capturing real-time video streams through cameras and superimposing computer vision algorithms can be used to detect whether an individual is wearing a mask. The research of Viola and Jones (2001) laid the foundation for face detection algorithms, which were later widely used in mask detection. 
 
-(2). Automated Mask Compliance Systems
-- Computer Vision-Based Systems: These systems use machine learning algorithms to detect whether individuals are wearing masks. Cameras capture real-time video feeds, and the system flags individuals not wearing masks. Viola and Jones (2001) laid the groundwork for face detection algorithms, which have since been adapted for mask detection later. 
+- **_AI-Powered Mask Detection_**: Artificial intelligence has been successfully used in public place health monitoring in the past period of time. AI algorithms can learn and train through a large number of images of people to identify whether the people in the picture are wearing masks, and can be used in public places to detect whether people are wearing masks correctly. Wang et al. (2020) introduced in their article how to develop and deploy an AI system for mask detection in an intelligent surveillance network. The research by Loey et al. (2021) illustrates that convolutional neural networks (CNNs) can effectively identify whether people are wearing masks in real-time videos.
 
-- AI-Powered Mask Detection:  The application of AI in public health surveillance has been evolving. The algorithms have been trained on datasets that have thousands of images of people with and without masks. These systems have been implemented in public to ensure compliance with mask.Wang et al. (2020) outlined the development and deployment of AI systems for mask detection in smart surveillance networks, providing insights into the technology’s accuracy and reliability. The work by Loey et al. (2021) demonstrates how convolutional neural networks (CNNs) can effectively detect masks in real-time video streams.  
+**(3). Smart Entry Gates:**
+- Some companies, such as Hikvision, have successfully developed a single device that combines body temperature and mask detection. Installing this type of equipment at the entrance allows automated inspections. Pavlidis et al. ⁤(2007) studied the integration of biometric and thermal intelligence systems. ⁤⁤Their research data shows that such systems have a significant effect in reducing the spread of the virus. ⁤⁤Research by Rahman et al. ⁤⁤(2021) further highlights the contribution of such devices to reducing the spread of COVID-19. ⁤ 
 
-(3) Smart Entry Gates
-- There are integrated systems that combines temperature and mask checks together in a single device eg Hikvision’s product. These devices are installed at entry gates, and they automate the process of checking. Pavlidis et al. (2007) did research on intergrated biometric and thermal smart systems. The data highlighted the potential in reducing the spread of infectious diseases. Research by Rahman et al. (2021) explores the effectiveness of these integrated systems in reducing the spread of COVID-19 by automating entry control. 
-
-(4) IoT-Enabled Solutions
-- Real-Time Data Transmission: IoT-enabled systems connect temperature and mask compliance devices to central servers. Health departments can monitor and analyzed the data in real time. Responding actions can be taken if needed. A paper by Atzori et al. (2010) discussed the early development of IoT systems and their application in healthcare, providing a foundation for modern smart entry systems. Kumar et al. (2021) discussed how IoT technology has been used to create smarter, more responsive health monitoring systems, particularly in public spaces where quick action is essential.
+**(4). IoT-Enabled Solutions:**
+- **_Real-Time Data Transmission_**: Through the system supported by the Internet of Things, temperature detection and mask detection equipment can be connected to the central server at the same time, so that the health management department can monitor and analyze relevant data in real time, and then determine whether action is needed. The paper by Atzori et al. (2010) illustrates the early stages of the development of IoT and its applications in healthcare. Kumar et al. (2021) discuss how the IoT can be leveraged to create smarter and more responsive health monitoring systems in public places.
 
 ## **5. Methodology**
 
@@ -80,12 +112,13 @@ Our research amis to address the need for automated influenza prevention measure
   | Items                        | Cost |
   | ---------------------------- | ---- |
   | Infrared Temperature Sensor: | $10  |
-  | Raspberry Pi                 | $0   |
+  | Raspberry Pi 3 Model B+      | $0   |
   | Camera                       | $0   |
   | DC Motor / Servo Motor       | $0   |
   | Camera                       | $0   |
   | Resistors                    | $0   |
   | LED                          | $0   |
+  | LCD                          | $0   |
   | Jumper Wires                 | $0   |
   | Total Cost                   | $10  |
 
@@ -114,11 +147,11 @@ Our research amis to address the need for automated influenza prevention measure
 
 **(3). Hardware Selection:**
 
-- Raspberry Pi
+- [Raspberry Pi 3 Model B+](https://core-electronics.com.au/raspberry-pi-3-model-b-plus.html)
 - DC Motor / Servo Motor
 - [MLX90614 Infrared contactless temeperature sensor](https://www.aliexpress.com/item/1005005796792057.html?src=google&src=google&albch=shopping&acnt=708-803-3821&isdl=y&slnk=&plac=&mtctp=&albbt=Google_7_shopping&aff_platform=google&aff_short_key=UneMJZVf&gclsrc=aw.ds&&albagn=888888&&ds_e_adid=&ds_e_matchtype=&ds_e_device=c&ds_e_network=x&ds_e_product_group_id=&ds_e_product_id=en1005005796792057&ds_e_product_merchant_id=758212040&ds_e_product_country=AU&ds_e_product_language=en&ds_e_product_channel=online&ds_e_product_store_id=&ds_url_v=2&albcp=19373854259&albag=&isSmbAutoCall=false&needSmbHouyi=false&gad_source=1&gclid=Cj0KCQjww5u2BhDeARIsALBuLnObucoDOEMwFGbDHOxcD0_AX_ql3qjFJ_BcMI-25OMw-b-N0VzMzbsaAs6NEALw_wcB)
 - Camera
-- [ESP8266 Wifi Module](https://core-electronics.com.au/wifi-module-esp8266-4mb.html?gad_source=1&gclid=Cj0KCQjww5u2BhDeARIsALBuLnNhEuA19CzafMPlHxN2YyHtDuQzXu0ILG-6-zSYhU-_Q4LTA3dFxXEaAiQDEALw_wcB)
+- LCD
 - Resistors
 - LED(red, green)
 - Jumper Wires
@@ -161,18 +194,18 @@ As sub teams are made, and project divided into tasks for sub teams then write i
 |Name of Student|Work Assigned|Reason for the Assignment|
 |-----------------|---------------|---------------------------|
 |Ming Gao| Documentation, Video Editing| Ming has years of working experience with paperwork and has used video editing software before|
-|Jingtong Peng| Hardware researching and development, Design and Architecture| Jingtong has working experience in embedded system programming|
-|Tang Fung Leung| User Interface Development & Testing | Tang has experience in agile web development
+|Jingtong Peng| Hardware researching and development, Design and Architecture| Jingtong has working experience in system programming|
+|Tang Fung Leung| User Interface Development & Testing | Tang Fung has experience in agile web development|
 
 ## 7. A well-defined timeline related to subsystems should be made. Tasks should be assigned to sub-teams (refer above 8) and Timeline should cater for interdependence (parallel or sequential) of the subsystems.
-    ## Smart Entry System Project Timeline
+**Smart Entry System Project Timeline**
 
 | Week  | Task                                                     | Details                                                                                                               |
 |-------|----------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
 | **6** | Decide Necessary Hardware and Demonstration Method; Front-end and Back-end Design | Confirm the required hardware and order it online or obtain it from the university. Finalize the method to present the product, including its subsystems: Temperature subsystem, camera subsystem, LCD subsystem, autodoor subsystem, back-end subsystem, front-end subsystem. |
 | **7** | Preliminary Design of Front-end/Back-end of Website/App | Develop a website that can display the temperature and mask-wearing information of the person in the browser.        |
 | **8** | Assemble Hardware and Test It; Code Embedded in Hardware. Final Design of Front-end/Back-end of Website/App | Include components such as a contactless temperature sensor and a camera to detect whether a person entering is wearing a mask. Display pass/reject messages on the LCD device, red signal blink, and remind the person to wear a mask or advise them to go to a doctor. If the person is fine, allow entry. |
-| **9** | Connect Hardware to Central Server and Test It          | Send temperature data and photo data to the central database, analyze it, and send the result back to the hardware. |
+| **9** | Connect Hardware to Different Components and Test It          | Send temperature data and photo data to the database in the Raspberry Pi, analyze it, and send the result back to the LCD and the UI in browser. |
 | **10**| Test the Project and Record Details                     | Record any errors encountered and continue testing.                                                                   |
 | **11**| Test the Project and Record Details                     | Continue testing, recording errors, and refining the system.                                                           |
 | **12**| Prepare Slides for Presentation and Rehearse            | Develop presentation slides and practice the presentation.                                                             |
@@ -190,7 +223,7 @@ required (Each group has $50 budget for the items (not including cost of items a
 | 5   | LCD Display                                | Yes                       | $23.90 | [Assembled Standard LCD 16x2 Extras White on Blue](https://core-electronics.com.au/assembled-standard-lcd-16x2-extras-white-on-blue.html) | 1 day         |
 | 6   | Jumper Wire                                | Yes                       | $3.20 | [Male to Female Dupont Line 40 Pin 10cm 24AWG](https://core-electronics.com.au/male-to-female-dupont-line-40-pin-10cm-24awg.html) | 1 day         |
 | 7   | HDMI Cable                                 | Yes                       | $5.95 | [HDMI Cable 2m](https://core-electronics.com.au/hdmi-cable-2m.html)                                                   | 1 day         |
-| 8   | Resistor                                   | Yes                       | $     |                                                                                                                        | 1 day         |
+| 8   | Resistor                                   | Yes                       | $NA     |                                                                                                                        | 1 day         |
 
 ## 9. References
 
@@ -200,7 +233,7 @@ required (Each group has $50 budget for the items (not including cost of items a
 >
 > [3] World Health Organization. (2022). “COVID-19: Endemic does not mean it’s harmless.” WHO.
 >
-> [4] P. Mittal, K. Pandey, P. Tawani and R. Rohilla, "CNN-based Person Recognition System for Masked Faces in a post-pandemic world," 2021 2nd International Conference for Emerging Technology (INCET), Belagavi, India, 2021, pp. 1-6, doi: 10.1109/INCET51464.2021.9456416.
+> [4] P. Mittal, K. Pandey, P. Tawani and R. Rohilla (2021), "CNN-based Person Recognition System for Masked Faces in a post-pandemic world," 2021 2nd International Conference for Emerging Technology (INCET), Belagavi, India, pp. 1-6.
 >
 > [5] Ng, E. Y. K., Kaw, G. J. L., & Chang, W. M. (2004). “Analysis of IR Thermal Imager for Mass Blind Fever Screening.” Microvascular Research, 68(2), 104-109.
 >
@@ -223,3 +256,5 @@ required (Each group has $50 budget for the items (not including cost of items a
 > [14] Atzori, L., Iera, A., & Morabito, G. (2010). “The Internet of Things: A Survey.” Computer Networks, 54(15), 2787-2805.
 >
 > [15] Kumar, R., et al. (2021). “IoT-Based Smart Health Monitoring System for COVID-19 Patients.” Journal of Healthcare Engineering, 2021, 8841912.
+>
+> [16] Cutler, D. M., & Summers, L. H. (2020). ‘The COVID-19 Pandemic and the $16 Trillion Virus.’ JAMA, 324(15), 1495–1496.
