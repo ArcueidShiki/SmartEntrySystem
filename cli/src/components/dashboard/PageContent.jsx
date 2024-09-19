@@ -14,7 +14,7 @@ function PageContent() {
     setError(null);
 
     // Fetch JSON data
-    fetch(`${API_URL}/api/real_time_data.json`)
+    fetch(`${API_URL}/api/real_time_data`)
       .then(res => {
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
@@ -33,7 +33,7 @@ function PageContent() {
       });
 
     // Fetch image
-    fetch(`${API_URL}/api/current_image.png`)
+    fetch(`${API_URL}/api/current_image`)
       .then(res => {
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
