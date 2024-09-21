@@ -1,0 +1,37 @@
+/* control.css */
+
+.container {
+  padding: 20px;
+}
+
+h1 {
+    font-size: 50px;
+    margin-bottom: 0;
+    font-weight: 600;
+}
+
+.control-image {
+    width: 100%;          
+    max-width: 300px;      
+    height: 300px;          
+    margin: 50px auto;  
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.control-button {
+  width: 120px;
+}
+
+/* Add some space between the image-button pairs */
+.col-md-4:first-child {
+  margin-right: 20px;
+}
+
+@media (max-width: 768px) {
+  .col-md-4:first-child {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+}

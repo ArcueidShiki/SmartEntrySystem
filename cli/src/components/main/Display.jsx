@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './pageContent.css';
+import './display.css';
 
 function PageContent() {
   const [currentReading, setCurrentReading] = useState(null);

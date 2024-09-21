@@ -1,3 +1,9 @@
+.main {
+    margin-top: 60px;
+    padding: 20px 230px;
+    transform: all 0.3s;
+}
+
 .pagetitle {
     margin-bottom: 10px;
 }
