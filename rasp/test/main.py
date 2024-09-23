@@ -1,6 +1,8 @@
 # pip install picamera[array] request RPi.GPIO
 import cv2
 import imutils
+import socket
+import struct
 import time
 import requests
 import json
@@ -10,7 +12,7 @@ import smbus
 import RPi.GPIO as GPIO
 
 # Configuration
-BACKEND_URL = "http://<backend_server_ip>:<port>/realtime"
+BACKEND_URL = "http://172.20.10.11:5000/video_feed"
 SERVO_PIN = 18
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(SERVO_PIN, GPIO.OUT)
