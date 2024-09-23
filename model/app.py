@@ -9,6 +9,7 @@ import time
 import os
 import cv2
 import socket
+import struct
 
 app = Flask(__name__)
 model = load_model("mask_detector.keras")
