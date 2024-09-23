@@ -8,10 +8,10 @@ import imutils
 import time
 import os
 import cv2
+import socket
 
 app = Flask(__name__)
 model = load_model("mask_detector.keras")
-
 prototxtPath = "face_detector/deploy.prototxt"
 weightsPath = "face_detector/res10_300x300_ssd_iter_140000.caffemodel"
 faceNet = cv2.dnn.readNet(prototxtPath, weightsPath)
@@ -59,30 +59,46 @@ def detect_and_predict_mask(frame, faceNet, maskNet):
         return (locs, preds)
     
 def generate_frames():
-    camera = cv2.VideoCapture(0)
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_socket.bind(('172.20.10.4', 8000))
+    server_socket.listen(1)
+    print("Waiting for connection from Raspberry Pi...")
+    conn, addr = server_socket.accept()
+    print(f"Connected to {addr}")
     while True:
-        success, frame = camera.read()
-        if not success:
+        size_data = conn.recv(struct.calcsize("L"))
+        if not size_data:
             break
-        else:
-            # Detect faces and predict mask usage
-            (locs, preds) = detect_and_predict_mask(frame, faceNet, model)
-            # Loop over the detected face locations and their corresponding locations
-            for (box, pred) in zip(locs, preds):
-                (startX, startY, endX, endY) = box
-                (mask, withoutMask) = pred
-                # Determin the class label and color we'll sue to draw the bounding box and text
-                label = "Mask" if mask > withoutMask else "No Mask"
-                color = (0, 255, 0) if label == "Mask" else (0, 0, 255)
-                # Include the probability in the label
-                label = "{}: {:.2f}%".format(label, max(mask, withoutMask) * 100)
-                # Display the label and bounding box rectangle on the output frame
-                cv2.putText(frame, label, (startX, startY - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 2)
-                cv2.rectangle(frame, (startX, startY), (endX, endY), color, 2)
-            ret, buffer = cv2.imencode('.jpg', frame)
-            frame = buffer.tobytes()
-            yield (b'--frame\r\n'
-                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+        size = struct.unpack("L", size_data)[0]
+        img_data = b""
+        while len(img_data) < size:
+            packet = conn.recv(size - len(img_data))
+            if not packet:
+                break
+            img_data += packet
+        # Convert image data to numpy array
+        nparr = np.frombuffer(img_data, np.uint8)
+        frame = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+        if frame is None:
+            continue
+        # Detect faces and predict mask usage
+        (locs, preds) = detect_and_predict_mask(frame, faceNet, model)
+        # Loop over the detected face locations and their corresponding locations
+        for (box, pred) in zip(locs, preds):
+            (startX, startY, endX, endY) = box
+            (mask, withoutMask) = pred
+            # Determin the class label and color we'll sue to draw the bounding box and text
+            label = "Mask" if mask > withoutMask else "No Mask"
+            color = (0, 255, 0) if label == "Mask" else (0, 0, 255)
+            # Include the probability in the label
+            label = "{}: {:.2f}%".format(label, max(mask, withoutMask) * 100)
+            # Display the label and bounding box rectangle on the output frame
+            cv2.putText(frame, label, (startX, startY - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 2)
+            cv2.rectangle(frame, (startX, startY), (endX, endY), color, 2)
+        ret, buffer = cv2.imencode('.jpg', frame)
+        frame = buffer.tobytes()
+        yield (b'--frame\r\n'
+                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 @app.route('/')
 def index():
