@@ -1,5 +1,4 @@
 # pip install picamera[array] request RPi.GPIO
-import cv2
 import imutils
 import socket
 import struct
@@ -10,6 +9,7 @@ from picamera.array import PiRGBArray
 from picamera import PiCamera
 import smbus
 import RPi.GPIO as GPIO
+import jpg
 
 # Configuration
 BACKEND_URL = "http://172.20.10.11:5000/video_feed"
@@ -31,6 +31,10 @@ time.sleep(0.1)
 clien_socket = socket.socket(socket.AF_INET, socket.SOCKET_STREAM)
 client_socket.connect(('172.20.10.11', 8000))
 
+def encode_image(image_path):
+    with open(image_path, 'rb') as f:
+        return jpg.encode(f.read())
+
 def read_temperature():
     temp = BUS.read_word_data(mlx99614_address, 0x07)
     return temp * 0.02 - 273.15
@@ -45,7 +49,8 @@ def set_angle(angle):
 
 def send_data(image, temperature):
     try:
-        _, img_encoded = cv2.imencode('.jpg', image)
+
+        img_encoded = encode_image('.jpg', image)
         client_socket.sendall(struct.pack("L", len(img_encoded)))
         client_socket.sendall(img_encoded)
         client_socket.sendall(struct.pack("f", temperature))
