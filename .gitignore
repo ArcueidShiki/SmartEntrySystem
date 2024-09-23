@@ -42,5 +42,7 @@
 **/out/
 **/venv/
 **/env/
-
+**/Include/
+**/Scripts/
+*.cfg
 
