@@ -1,7 +1,7 @@
 /* control.css */
 
 .container {
-  padding: 20px;
+  padding: 150px 20px;
 }
 
 h1 {
@@ -21,7 +21,7 @@ h1 {
 }
 
 .control-button {
-  width: 120px;
+  width: 130px;
 }
 
 /* Add some space between the image-button pairs */

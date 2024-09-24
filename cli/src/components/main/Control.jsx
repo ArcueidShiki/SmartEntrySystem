@@ -19,7 +19,6 @@ function Control() {
 
   return (
     <div className="container">
-      <h1 className="mb-4">Control</h1>
       <div className="row justify-content-center">
         <div className="col-md-4 text-center">
           <img
