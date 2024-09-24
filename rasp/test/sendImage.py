@@ -1,6 +1,33 @@
 import socket
+from picamera2 import Picamera2
+from picamera2.encoders import H264Encoder
+from picamera2.outputs import FileOutput
+import time
 
-def send_image(image_path, server_ip, server_port=12345):
+#initiate the camera
+
+picam2 = Picamera2()
+
+#configure the camera for preview and capture
+camera_config = picam2.create_still_configuration()
+picam2.configure(camera_config)
+
+#start the camera
+
+picam2.start()
+
+#Capture the image
+
+print("capturing image... ")
+
+picam2.capture_file("image.jpg")
+
+print("Image saved as 'image.jpg'")
+
+# Stop the camera
+picam2.stop()
+
+def send_image(image_path, server_ip, server_port=8000):
     # Create a socket object
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -29,6 +56,6 @@ def send_image(image_path, server_ip, server_port=12345):
         client_socket.close()
 
 if __name__ == "__main__":
-    server_ip = "172.20.10.6"  # Replace with your Mac's IP address
+    server_ip = "172.20.10.11"  # Replace with your Mac's IP address
     image_path = "image.jpg"  # Replace
     send_image(image_path, server_ip)
