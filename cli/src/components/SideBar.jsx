@@ -1,33 +1,30 @@
 import React from 'react';
 import './sideBar.css';
 
-function SideBar() {
+function SideBar({ setView, currentView }) {
+  const navItems = [
+    { id: 'display', icon: 'bi-display', label: 'Display' },
+    { id: 'data', icon: 'bi-clipboard-data', label: 'Data' },
+    { id: 'control', icon: 'bi-box-arrow-in-right', label: 'Control' }
+  ];
+
   return (
     <aside className='sidebar'>
-        <ul className='sidebar-nav' id='sidebar-nav'>
-            <li className='nav-item'>
-                <a href='/' className='nav-link'>
-                    <i className='bi bi-display'></i>
-                    <span>Display</span>
-                </a>
-            </li>
-
-            <li className='nav-item'>
-                <a href='/' className='nav-link'>
-                    <i className='bi bi-clipboard-data'></i>
-                    <span>Data</span>
-                </a>
-            </li>
-
-            <li className='nav-item'>
-                <a href='/' className='nav-link'>
-                    <i className='bi bi-box-arrow-in-right'></i>
-                    <span>Control</span>
-                </a>
-            </li>
-        </ul>
+      <ul className='sidebar-nav' id='sidebar-nav'>
+        {navItems.map((item) => (
+          <li key={item.id} className='nav-item'>
+            <button
+              className={`nav-link ${currentView === item.id ? 'active' : ''}`}
+              onClick={() => setView(item.id)}
+            >
+              <i className={`bi ${item.icon}`}></i>
+              <span>{item.label}</span>
+            </button>  
+          </li>
+        ))}
+      </ul>
     </aside>
-  )
+  );
 }
 
-export default SideBar
+export default SideBar;
