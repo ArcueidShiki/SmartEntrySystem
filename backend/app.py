@@ -1,9 +1,12 @@
 from flask import Flask, request, jsonify, send_from_directory, render_template
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from flask_cors import CORS
 import os
 
 app = Flask(__name__)
+CORS(app)
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///entries.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = 'static/images'
@@ -56,6 +59,20 @@ def get_entries():
             'image_path': entry.image_path
         })
     return jsonify(results)
+
+@app.route('/api/real_time_data', methods=['GET'])
+def get_real_time_data():
+    latest_entry = Entry.query.order_by(Entry.timestamp.desc()).first()
+    if latest_entry:
+        return jsonify({
+            'current_reading': {
+                'temperature': latest_entry.temperature,
+                'mask_status': latest_entry.mask_status,
+                'timestamp': latest_entry.timestamp,
+                'image_path': latest_entry.image_path  # Include the image path
+            }
+        })
+    return jsonify({'error': 'No data available'}), 404
 
 @app.route('/images/<filename>')
 def get_image(filename):
