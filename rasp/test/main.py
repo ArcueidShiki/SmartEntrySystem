@@ -75,14 +75,14 @@ def send_data(image, temperature):
 def control_servo(command):
     if command == "open":
         servo = ChangeDutyCycle(7.5)    # 90 degrees
-    elif command = "close":
+    elif command == "close":
         servo = ChangeDutyCycle(2.5)    # 0 degrees
 
 def main():
     try:
         while True:
             # Loop over the frames from the video stream
-            from frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port = True):
+            for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port = True):
                 # Grab the frame from the video stream and resize it
                 image = frame.array
                 image = imutils.resize(image, width = 400)
