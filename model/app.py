@@ -10,14 +10,14 @@ import os
 import cv2
 import socket
 import struct
-
+# netsh advfirewall set allprofiles state off
 app = Flask(__name__)
 model = load_model("mask_detector.keras")
 prototxtPath = "face_detector/deploy.prototxt"
 weightsPath = "face_detector/res10_300x300_ssd_iter_140000.caffemodel"
 faceNet = cv2.dnn.readNet(prototxtPath, weightsPath)
-RASP_IP = "172.20.10.4"
-RASP_PORT = 12345
+RASP_IP = '0.0.0.0'
+RASP_PORT = 8000
 
 def detect_and_predict_mask(frame, faceNet, maskNet):
     # Grab the dimensions of the frame and then construct a blob
@@ -66,22 +66,41 @@ def generate_frames():
     server_socket.bind((RASP_IP, RASP_PORT))
     server_socket.listen(1)
     print("Waiting for connection from Raspberry Pi...")
-    rasp_socket, addr = server_socket.accept()
+    connection, addr = server_socket.accept()
     print(f"Connected to {addr}")
     try:
         while True:
-            frame_size_data = rasp_socket.recv(struct.calcsize("L"))
-            if not size_data:
-                break
-            size = struct.unpack(">L", size_data)[0]
-            img_data = b''
-            while len(img_data) < frame_size:
-                packet = rasp_socket.recv(frame_size - len(img_data))
+            # Receive frame size
+            frame_size_data = connection.recv(4)
+            frame_size = int.from_bytes(frame_size_data, byteorder='big')
+
+            # Receive frame data
+            frame_data = b''
+            frame = None
+            while len(frame_data) < frame_size:
+                packet = connection.recv(frame_size - len(frame_data))
                 if not packet:
                     break
-                img_data += packet
-            # Reshape the raw RGB frame into the correct format (640x480 resolution, RGB format)
-            frame = np.frombuffer(frame_data, dtype=np.uint8).reshape((480, 640, 3))
+                frame_data += packet
+
+            if len(frame_data) == frame_size:
+                # Determine the shape based on the received data size
+                if frame_size == 640 * 480 * 3:
+                    shape = (480, 640, 3)  # RGB
+                elif frame_size == 640 * 480:
+                    shape = (480, 640)  # Grayscale
+                else:
+                    shape = (int(np.sqrt(frame_size)), int(np.sqrt(frame_size)))  # Square image
+                
+                # Reshape the data
+                frame = np.frombuffer(frame_data, dtype=np.uint8).reshape(shape)
+                
+                # Process frame with AI model here
+                # For example: processed_frame = ai_model.process(frame)
+                
+                print(f"Received frame: shape={frame.shape}, dtype={frame.dtype}")
+            else:
+                print(f"Incomplete frame received: {len(frame_data)} bytes")
 
             # Call the AI model for mask detection
             # Detect faces and predict mask usage
@@ -105,7 +124,8 @@ def generate_frames():
     except Exception as e:
         print(f"Error in receiving video frame: {e}")
     finally:
-        rasp_socket.close()
+        connection.close()
+        server_socket.close()
 
 @app.route('/')
 def index():
