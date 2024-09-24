@@ -1,4 +1,5 @@
-from picamera2.outputs import FileOutput, Picamera2
+from picamera2.outputs import FileOutput
+from picamera2 import Picamera2
 from picamera2.encoders import Encoder
 import time
 import socket
@@ -16,7 +17,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as sock:
 
 while True:
     try:
-        picam2.capture(output)
+        print("Recording...")
     except KeyboardInterrupt:
         picam2.stop_recording()
         break
