@@ -18,6 +18,12 @@ weightsPath = "face_detector/res10_300x300_ssd_iter_140000.caffemodel"
 faceNet = cv2.dnn.readNet(prototxtPath, weightsPath)
 RASP_IP = '0.0.0.0'
 RASP_PORT = 8000
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server_socket.bind((RASP_IP, RASP_PORT))
+server_socket.listen(1)
+print("Waiting for connection from Raspberry Pi...")
+connection, addr = server_socket.accept()
+print(f"Connected to {addr}")
 
 def detect_and_predict_mask(frame, faceNet, maskNet):
     # Grab the dimensions of the frame and then construct a blob
@@ -62,45 +68,44 @@ def detect_and_predict_mask(frame, faceNet, maskNet):
         return (locs, preds)
     
 def generate_frames():
-    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_socket.bind((RASP_IP, RASP_PORT))
-    server_socket.listen(1)
-    print("Waiting for connection from Raspberry Pi...")
-    connection, addr = server_socket.accept()
-    print(f"Connected to {addr}")
     try:
         while True:
             # Receive frame size
-            frame_size_data = connection.recv(4)
-            frame_size = int.from_bytes(frame_size_data, byteorder='big')
+            message_size = struct.calcsize("L")
+            data = request.data
+            frame_size = struct.unpack("L", data[:message_size])[0]
+            frame_data = data[message_size:message_size + frame_size]
+            frame = np.frombuffer(frame_data, dtype=np.uint8).reshape((480, 640, 3))
+            # frame_size_data = connection.recv(4)
+            # frame_size = int.from_bytes(frame_size_data, byteorder='big')
 
-            # Receive frame data
-            frame_data = b''
-            frame = None
-            while len(frame_data) < frame_size:
-                packet = connection.recv(frame_size - len(frame_data))
-                if not packet:
-                    break
-                frame_data += packet
+            # # Receive frame data
+            # frame_data = b''
+            # frame = None
+            # while len(frame_data) < frame_size:
+            #     packet = connection.recv(frame_size - len(frame_data))
+            #     if not packet:
+            #         break
+            #     frame_data += packet
 
-            if len(frame_data) == frame_size:
-                # Determine the shape based on the received data size
-                if frame_size == 640 * 480 * 3:
-                    shape = (480, 640, 3)  # RGB
-                elif frame_size == 640 * 480:
-                    shape = (480, 640)  # Grayscale
-                else:
-                    shape = (int(np.sqrt(frame_size)), int(np.sqrt(frame_size)))  # Square image
+            # if len(frame_data) == frame_size:
+            #     # Determine the shape based on the received data size
+            #     if frame_size == 640 * 480 * 3:
+            #         shape = (480, 640, 3)  # RGB
+            #     elif frame_size == 640 * 480:
+            #         shape = (480, 640)  # Grayscale
+            #     else:
+            #         shape = (int(np.sqrt(frame_size)), int(np.sqrt(frame_size)))  # Square image
                 
-                # Reshape the data
-                frame = np.frombuffer(frame_data, dtype=np.uint8).reshape(shape)
+            #     # Reshape the data
+            #     frame = np.frombuffer(frame_data, dtype=np.uint8).reshape(shape)
                 
-                # Process frame with AI model here
-                # For example: processed_frame = ai_model.process(frame)
+            #     # Process frame with AI model here
+            #     # For example: processed_frame = ai_model.process(frame)
                 
-                print(f"Received frame: shape={frame.shape}, dtype={frame.dtype}")
-            else:
-                print(f"Incomplete frame received: {len(frame_data)} bytes")
+            #     print(f"Received frame: shape={frame.shape}, dtype={frame.dtype}")
+            # else:
+            #     print(f"Incomplete frame received: {len(frame_data)} bytes")
 
             # Call the AI model for mask detection
             # Detect faces and predict mask usage
