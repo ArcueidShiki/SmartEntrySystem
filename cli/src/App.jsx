@@ -11,6 +11,7 @@ import SideBar from './components/SideBar';
 import Display from './components/main/Display';
 import Data from './components/main/Data';
 import Control from './components/main/Control';
+import Footer from './components/Footer';
 
 function App() {
   const [currentView, setCurrentView] = useState('display');
@@ -32,6 +33,7 @@ function App() {
     <Header/>
     <SideBar setView={setCurrentView} currentView={currentView}/>
     <main className='main'>{renderView()}</main>
+    <Footer />
   </>
   )
 }
