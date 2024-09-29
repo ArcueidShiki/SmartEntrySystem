@@ -41,8 +41,7 @@ function Data() {
     return annotations;
   };
 
-  const maskConfig = {
-    data: maskChartData,
+  const chartConfig = {
     xField: 'date',
     yField: 'value',
     stack: true,
@@ -52,29 +51,30 @@ function Data() {
       textBaseline: 'bottom',
       position: 'inside',
     },
+  };
+
+  const maskConfig = {
+    ...chartConfig,
+    data: maskChartData,
     annotations: createAnnotations(maskChartData),
   };
 
   const tempConfig = {
+    ...chartConfig,
     data: tempChartData,
-    xField: 'date',
-    yField: 'value',
-    stack: true,
-    colorField: 'type',
-    label: {
-      text: 'value',
-      textBaseline: 'bottom',
-      position: 'inside',
-    },
     annotations: createAnnotations(tempChartData),
   };
 
   return (
-    <div>
-      <h2>Mask Data Visualization</h2>
-      <Column {...maskConfig} />
-      <h2>Temperature Data Visualization</h2>
-      <Column {...tempConfig} />
+    <div className="charts-container">
+      <div className="chart-wrapper">
+        <h2>Mask Data Visualization</h2>
+        <Column {...maskConfig} />
+      </div>
+      <div className="chart-wrapper">
+        <h2>Temperature Data Visualization</h2>
+        <Column {...tempConfig} />
+      </div>
     </div>
   );
 }
