@@ -224,6 +224,12 @@ def generate_single_frame():
             cv2.rectangle(frame, (startX, startY), (endX, endY), color, 2)
 
         # Save the captured frame to the static folder
+        # Format the current date and time
+        # current_time = datetime.now().strftime("%Y%m%d_%H%M%S")
+
+        # Use the formatted date and time in the file path
+        # image_path = os.path.join("static/images", f"captured_image_{current_time}.jpg")
+
         image_path = os.path.join("static/images", "captured_image.jpg")
         cv2.imwrite(image_path, frame)
 
