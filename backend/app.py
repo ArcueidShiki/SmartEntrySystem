@@ -48,62 +48,48 @@ with app.app_context():
     db.create_all()
 
 
-
-def detect_and_predict_mask(frame, faceNet, maskNet):
-    # Grab the dimensions of the frame and then construct a blob
+def detect_and_predict_mask(frame, faceNet, model):
+    # Detect faces in the frame and get predictions
     (h, w) = frame.shape[:2]
     blob = cv2.dnn.blobFromImage(frame, 1.0, (300, 300), (104.0, 177.0, 123.0))
-    # pass blob through the network and obtain the face detections
     faceNet.setInput(blob)
     detections = faceNet.forward()
 
-    # initialize our list of faces, their corresponding lcoations,
-    # and the list of predicitons from our face mask network
     faces = []
     locs = []
     preds = []
 
+    # Loop over the detections
     for i in range(0, detections.shape[2]):
-        # extract the confidence (i.e. probability) associated with the detection
         confidence = detections[0, 0, i, 2]
-        # filter out weak detections by ensuring the confidence is greater thatn the minimum confidence
+
+        # Filter out weak detections
         if confidence > 0.5:
-            # compute the (x,y)-coordinates of the bounding box for the object
             box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
             (startX, startY, endX, endY) = box.astype("int")
-            # ensure the bounding boxed fall within the dimensionss of the frame
-            (endX, endY) = (min(w, endX), min(h, endY))
-            # extract the face ROI, convert it from BGR to RGB channel
-            # ordering, resize it to 224x224, and preprocess it
+
+            # Ensure the bounding box coordinates are within the frame dimensions
+            startX, startY = max(0, startX), max(0, startY)
+            endX, endY = min(w, endX), min(h, endY)
+
+            # Extract the face ROI, ensure it's not empty
             face = frame[startY:endY, startX:endX]
+            if face.size == 0:
+                continue  # Skip empty face regions
 
-            if face is None:
-                continue
-                # gray_img = cv2.cvtColor(face, cv2.COLOR_BGR2GRAY)
-                # cv2.imshow('Stream', gray_img)
-            try:
-                face = cv2.cvtColor(face, cv2.COLOR_BGR2RGB)
-            # if cv2.waitKey(1) == 27:
-                # continue
-            
-                
+            face = cv2.cvtColor(face, cv2.COLOR_BGR2RGB)
+            face = cv2.resize(face, (224, 224))
+            face = img_to_array(face)
+            face = preprocess_input(face)
 
-            # face = cv2.cvtColor(face, cv2.COLOR_BGR2RGB)
-            # face = cv2.resize(face, (224, 224))
-                face = img_to_array(face)
-                face = preprocess_input(face)
-                # add the face and bounding boxed to their respective lis
-            except Exception as e:
-                continue
-            finally:
-                faces.append(face)
-                locs.append((startX, startY, endX, endY))
-        
-    # only make a predictionss if at least one face was detected
+            faces.append(face)
+            locs.append((startX, startY, endX, endY))
+
+    # Make a prediction if any faces are found
     if len(faces) > 0:
         faces = np.array(faces, dtype="float32")
-        preds = maskNet.predict(faces, batch_size=32)
-    # return a 2-tuple of the face locations and their corresponding locations
+        preds = model.predict(faces, batch_size=32)
+
     return (locs, preds)
     
 
