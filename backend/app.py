@@ -1,7 +1,16 @@
+import random
+import flask
+import pyautogui
+import pytesseract
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 import json
 import threading
 from flask_cors import CORS
-from store_data_to_database import store_data
+from get_data_from_finalResult import store_data
+from screenshot_specific_area import capture_specified_area
+# from store_data_to_database import store_data
 
 from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 from tensorflow.keras.preprocessing.image import img_to_array
@@ -42,6 +51,7 @@ class Entry(db.Model):
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     temperature = db.Column(db.Float, nullable=False)
     mask_status = db.Column(db.Boolean, nullable=False)
+    final_result = db.Column(db.Boolean, nullable=False)
     image_path = db.Column(db.String(100), nullable=False)
 
 with app.app_context():
@@ -94,15 +104,21 @@ def detect_and_predict_mask(frame, faceNet, model):
     
 
 latest_prediction = {
+    "temperature": 0.0,
     "label": "",
-    "probability": 0.0
+    "probability": 0.0,
+    "final_result": ""
 }
 
 
 ## This is the function to get video from local camera
 
 def generate_frames():
+
+
+
     global latest_prediction
+    global temperature
 
     # Open a connection to the laptop's camera (0 is usually the default camera)
     camera = cv2.VideoCapture(0)
@@ -112,6 +128,12 @@ def generate_frames():
         return
 
     while True:
+
+        # Get the temperature for testing
+        temperature_options = [35.5, 36.5, 37.5]
+         
+        temperature = random.choice(temperature_options)
+
         # Capture frame-by-frame from the laptop's camera
         success, frame = camera.read()
 
@@ -131,8 +153,16 @@ def generate_frames():
             (mask, withoutMask) = pred
             label = "Mask" if mask > withoutMask else "No Mask"
             probability = max(mask, withoutMask) * 100
+            latest_prediction["temperature"] = temperature
             latest_prediction["label"] = label
             latest_prediction["probability"] = probability
+
+            # Final Result
+            if latest_prediction["label"] == "Mask" and latest_prediction["temperature"] <= 37:
+                latest_prediction["final_result"] = "Open the door"
+            else:
+                latest_prediction["final_result"] = "Close the door"
+
             label_text = "{}: {:.2f}%".format(label, probability)
             color = (0, 255, 0) if label == "Mask" else (0, 0, 255)
 
@@ -243,8 +273,8 @@ def generate_single_frame():
         cv2.imwrite(image_path, frame)
 
         # Get the temperature
-        temperature = 35.5
-        store_data(temperature, label, image_path)
+        # temperature = 35.5
+        # store_data(temperature, label, image_path)
 
         # Encode the frame in JPEG format
         ret, buffer = cv2.imencode('.jpg', frame)
@@ -271,28 +301,33 @@ def image_feed():
         return Response(status=500)
     return Response(frame, mimetype='image/jpeg')
 
+    
+
 @app.route('/entry', methods=['POST'])
 def add_entry():
     try:
-        temperature = request.form['temperature']
-        mask_status = request.form['mask_status'].lower() == 'true'
-        image = request.files['image']
+        temperature = float(request.form.get('temperature'))  # Ensure this is a float
+        mask_status = request.form.get('mask_status') == 'True'  # Convert to boolean
+        final_result = request.form.get('final_result') == 'True'  # Convert to boolean
+        image_path = request.files['image'].filename  # Adjust as necessary
 
-        if not os.path.exists(app.config['UPLOAD_FOLDER']):
-            os.makedirs(app.config['UPLOAD_FOLDER'])
+        # Log the received data
+        print(f"Received: temperature={temperature}, mask_status={mask_status}, final_result={final_result}, image_path={image_path}")
 
-        # Save the image file
-        image_path = os.path.join(app.config['UPLOAD_FOLDER'], image.filename)
-        image.save(image_path)
+        new_entry = Entry(
+            temperature=temperature,
+            mask_status=mask_status,
+            final_result=final_result,
+            image_path=image_path
+        )
 
-        # Create a new Entry instance and save it to the database
-        new_entry = Entry(temperature=float(temperature), mask_status=mask_status, image_path=image_path)
         db.session.add(new_entry)
         db.session.commit()
-
-        return jsonify({'message': 'Entry added successfully'}), 201
+        return jsonify({"message": "Entry added successfully."}), 201
     except Exception as e:
-        return jsonify({'error': str(e)}), 400
+        print(f"Error: {e}")
+        return jsonify({"error": str(e)}), 500
+
 
 @app.route('/entries', methods=['GET'])
 def get_entries():
@@ -304,6 +339,7 @@ def get_entries():
             'timestamp': entry.timestamp,
             'temperature': entry.temperature,
             'mask_status': entry.mask_status,
+            'final_result': entry.final_result,
             'image_path': entry.image_path
         })
     return jsonify(results)
@@ -333,23 +369,58 @@ def get_current_image():
 def get_latest_prediction():
     return jsonify(latest_prediction)
 
+    
+
 
 @app.route('/images/<filename>')
 def get_image(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
-# def capture_and_upload():
-#     while True:
-#         frame_data = generate_single_frame()
-#         if frame_data is None:
-#             print("Error capturing frame.")
-#             time.sleep(1)  # Wait before trying again
-#             continue
-#         time.sleep(1) 
+
+
+def capture_screenshot():
+
+    # Get the current time for the screenshot filename
+    current_time = datetime.now().strftime("%Y%m%d_%H%M%S")
+    screenshot_filename = f"screenshot_{current_time}.png"
+
+    # Capture the screenshot
+    screenshot = pyautogui.screenshot()
+    screenshot.save(screenshot_filename)
+    print(f"Screenshot saved as {screenshot_filename}")
+
+
+
+
+
+
+
 
 
 if __name__ == "__main__":
-    # thread = threading.Thread(target=capture_and_upload, daemon=True)
-    # thread.start()
-    # app.run(host='172.20.10.11', port=5000)
-    app.run(host='0.0.0.0', port=5000)
+
+    # app.run(host='0.0.0.0', port=5000)
+
+    # capture_screenshot_from_localhost()
+
+        # Start the Flask app in a separate thread
+    flask_thread = threading.Thread(target=app.run, kwargs={'host': '0.0.0.0', 'port': 5000})
+    flask_thread.start()
+
+
+    try:
+        # Capture the screenshot in a loop
+        while True:
+            if latest_prediction["label"]:
+                screenshot_path = capture_specified_area("real-time", "last")
+                
+
+                # upload the data to the database
+                store_data(screenshot_path)
+            else:
+                continue
+    except KeyboardInterrupt:
+        print("Stopping screenshot capture.")
+
+    # Wait for the Flask app to finish
+    flask_thread.join()

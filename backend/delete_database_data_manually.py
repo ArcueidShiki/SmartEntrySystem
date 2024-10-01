@@ -25,4 +25,4 @@ def delete_entries(start_id, end_id):
 if __name__ == '__main__':
     # Set up the app context
     with app.app_context():
-        delete_entries(10, 73)  # Call the function to delete entries
+        delete_entries(2, 60)  # Call the function to delete entries
