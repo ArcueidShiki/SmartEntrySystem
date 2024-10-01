@@ -1,10 +1,9 @@
-On raspberrpi pi 
+# Start program on Raspberry pi
 
-```bash
-sudo apt-get update
-sudo apt-get install onnxruntime
+There're no need to install anything.
 
-# compile 
-g++ -o mask_detector mask_detector.cpp `pkg-config --cflags --libs opencv4` -lonnxruntime
-./mask_detector
+```
+bash
+cd rasp/src
+python app.py
 ```

@@ -1,0 +1,15 @@
+.charts-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  width: 100%;
+}
+
+.chart-wrapper {
+  width: 48%; /* Adjust this value to control the width of each chart */
+}
+
+.chart-wrapper h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
