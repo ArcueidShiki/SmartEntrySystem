@@ -101,12 +101,7 @@ latest_prediction = {
 
 def generate_frames():
     global latest_prediction
-    # camera = cv2.VideoCapture(0)
     while True:
-        # success, frame = camera.read()
-        # if not success:
-        #     print("Error: Frame not captured correctly")
-        #     continue
         url = 'http://172.20.10.4:8000/stream.mjpg'
         response = requests.get(url, stream=True)
         bytes = b''
@@ -143,87 +138,6 @@ def generate_frames():
         
         else:
             print(f"Failed to connect to the stream. Status code: {response.status_code}")
-
-        # Clean up
-        # cv2.destroyAllWindows()
-
-####
-
-
-
-        # frame = imutils.resize(frame, width=400)
-        # (locs, preds) = detect_and_predict_mask(frame, faceNet, model)
-
-        # for (box, pred) in zip(locs, preds):
-        #     (startX, startY, endX, endY) = box
-        #     (mask, withoutMask) = pred
-        #     label = "Mask" if mask > withoutMask else "No Mask"
-        #     probability = max(mask, withoutMask) * 100
-
-        #     # Update the latest prediction
-        #     latest_prediction["label"] = label
-        #     latest_prediction["probability"] = probability
-
-        #     label_text = "{}: {:.2f}%".format(label, probability)
-        #     color = (0, 255, 0) if label == "Mask" else (0, 0, 255)
-        #     cv2.putText(frame, label_text, (startX, startY - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 2)
-        #     cv2.rectangle(frame, (startX, startY), (endX, endY), color, 2)
-
-        # ret, buffer = cv2.imencode('.jpg', frame)
-        # frame = buffer.tobytes()
-        # yield (b'--frame\r\n'
-        #        b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-
-
-
-
-# This is the code made by Jingtong
-
-# def generate_frames():
-#     server_socket.listen(1)
-#     print("Waiting for connection from Raspberry Pi...")
-#     client_socket, addr = server_socket.accept()
-#     while True:
-#         try:
-#             image_size = int.from_bytes(client_socket.recv(4), 'big')
-#             # Receive the image data
-#             image_data = b''
-#             while len(image_data) < image_size:
-#                 packet = client_socket.recv(4096)
-#                 if not packet:
-#                     break
-#                 image_data += packet
-
-#             # Save the received image to the specified path
-#             with open("image.jpg", 'wb') as image_file:
-#                 image_file.write(image_data)
-            
-#             frame = cv2.imread("image.jpg")
-#             if frame is None or frame.size == 0:
-#                 print("Error: Frame not captured correctly")
-#                 continue
-#             frame = imutils.resize(frame, width=400)
-#             (locs, preds) = detect_and_predict_mask(frame, faceNet, model)
-#             # Loop over the detected face locations and their corresponding locations
-#             for (box, pred) in zip(locs, preds):
-#                 (startX, startY, endX, endY) = box
-#                 (mask, withoutMask) = pred
-#                 # Determin the class label and color we'll sue to draw the bounding box and text
-#                 label = "Mask" if mask > withoutMask else "No Mask"
-#                 color = (0, 255, 0) if label == "Mask" else (0, 0, 255)
-#                 # Include the probability in the label
-#                 label = "{}: {:.2f}%".format(label, max(mask, withoutMask) * 100)
-#                 # Display the label and bounding box rectangle on the output frame
-#                 cv2.putText(frame, label, (startX, startY - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 2)
-#                 cv2.rectangle(frame, (startX, startY), (endX, endY), color, 2)
-#             ret, buffer = cv2.imencode('.jpg', frame)
-#             frame = buffer.tobytes()
-#             yield (b'--frame\r\n'
-#                     b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-#         except Exception as e:
-#             print(f"Error in receiving video frame: {e}")
-#             client_socket.close()
-#             client_socket, addr = server_socket.accept()
 
 
 
@@ -290,59 +204,6 @@ def generate_single_frame():
         print(f"Error in processing single frame: {e}")
         return None
 
-
-
-## This is the code made by JingTong
-
-# def generate_single_frame():
-#     try:
-#         server_socket.listen(1)
-#         print("Waiting for connection from Raspberry Pi...")
-#         client_socket, addr = server_socket.accept()
-#         print(f"Connected to {addr}")
-#         # Receive the image size first
-#         image_size = int.from_bytes(client_socket.recv(4), 'big')
-
-#         # Receive the image data
-#         image_data = b''
-#         while len(image_data) < image_size:
-#             packet = client_socket.recv(4096)
-#             if not packet:
-#                 break
-#             image_data += packet
-
-#         # Save the received image to the specified path
-#         with open("image.jpg", 'wb') as image_file:
-#             image_file.write(image_data)
-        
-#         frame = cv2.imread("image.jpg")
-#         # Detect faces and predict mask/no mask
-#         locs, preds = detect_and_predict_mask(frame, faceNet, model)
-
-#         # Loop over the detected face locations and their corresponding locations
-#         for (box, pred) in zip(locs, preds):
-#             (startX, startY, endX, endY) = box
-#             (mask, withoutMask) = pred
-#             # Determine the class label and color we'll use to draw the bounding box and text
-#             label = "Mask" if mask > withoutMask else "No Mask"
-#             color = (0, 255, 0) if label == "Mask" else (0, 0, 255)
-#             # Include the probability in the label
-#             label = "{}: {:.2f}%".format(label, max(mask, withoutMask) * 100)
-#             # Display the label and bounding box rectangle on the output frame
-#             cv2.putText(frame, label, (startX, startY - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 2)
-#             cv2.rectangle(frame, (startX, startY), (endX, endY), color, 2)
-
-#         # Encode the frame in JPEG format
-#         ret, buffer = cv2.imencode('.jpg', frame)
-#         frame = buffer.tobytes()
-#         return frame
-
-#     except Exception as e:
-#         print(f"Error in processing single frame: {e}")
-#         return None
-#     finally:
-#         client_socket.close()
-#         # server_socket.close()
 
 @app.route('/')
 def index():
