@@ -1,5 +1,7 @@
 import React from 'react';
 import { Column } from '@ant-design/plots';
+import MaskPieChart from './MaskPieChart';  // Ensure the path is correct
+import HourlyMaskBarChart from './HourlyMaskBarChart';  // Ensure the path is correct
 import './data.css';
 
 function Data() {
@@ -29,8 +31,13 @@ function Data() {
     <div className="data-container">
       <h2>Data Visualization</h2>
       <Column {...config} />
+      <h2>Mask Usage Overview</h2>
+      <MaskPieChart />
+      <h2>Hourly Mask Usage</h2>
+      <HourlyMaskBarChart />
     </div>
   );
 }
 
 export default Data;
+
