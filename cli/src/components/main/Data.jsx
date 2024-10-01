@@ -1,40 +1,90 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Column } from '@ant-design/plots';
 import MaskPieChart from './MaskPieChart';  // Ensure the path is correct
 import HourlyMaskBarChart from './HourlyMaskBarChart';  // Ensure the path is correct
+import { forEach, groupBy } from 'lodash';
+import maskData from '../../data/mask_data.json';
+import tempData from '../../data/temp_data.json';
 import './data.css';
 
 function Data() {
-  const config = {
-    data: {
-      type: 'fetch',
-      value: 'https://render.alipay.com/p/yuyan/180020010001215413/antd-charts/column-column.json',
-    },
-    xField: 'letter',
-    yField: 'frequency',
+  const [maskChartData, setMaskChartData] = useState([]);
+  const [tempChartData, setTempChartData] = useState([]);
+
+  useEffect(() => {
+    setMaskChartData(maskData);
+    setTempChartData(tempData);
+  }, []);
+
+  // Function to create annotations
+  const createAnnotations = (data) => {
+    const annotations = [];
+    forEach(groupBy(data, 'date'), (values, k) => {
+      const value = values.reduce((a, b) => a + b.value, 0);
+      annotations.push({
+        type: 'text',
+        data: [k, value],
+        style: {
+          textAlign: 'center',
+          fontSize: 14,
+          fill: 'rgba(0,0,0,0.85)',
+        },
+        xField: 'date',
+        yField: 'value',
+        style: {
+          text: `${value}`,
+          textBaseline: 'bottom',
+          position: 'top',
+          textAlign: 'center',
+        },
+        tooltip: false,
+      });
+    });
+    return annotations;
+  };
+
+  const chartConfig = {
+    xField: 'date',
+    yField: 'value',
+    stack: true,
+    colorField: 'type',
     label: {
-      text: (d) => `${(d.frequency * 100).toFixed(1)}%`,
+      text: 'value',
       textBaseline: 'bottom',
+      position: 'inside',
     },
-    axis: {
-      y: {
-        labelFormatter: '.0%',
-      },
-    },
-    style: {
-      radiusTopLeft: 10,
-      radiusTopRight: 10,
-    },
+  };
+
+  const maskConfig = {
+    ...chartConfig,
+    data: maskChartData,
+    annotations: createAnnotations(maskChartData),
+  };
+
+  const tempConfig = {
+    ...chartConfig,
+    data: tempChartData,
+    annotations: createAnnotations(tempChartData),
   };
 
   return (
     <div className="data-container">
-      <h2>Data Visualization</h2>
-      <Column {...config} />
-      <h2>Mask Usage Overview</h2>
-      <MaskPieChart />
-      <h2>Hourly Mask Usage</h2>
-      <HourlyMaskBarChart />
+      <div className="chart-wrapper">
+        <h2>Mask Data Visualization</h2>
+        <Column {...maskConfig} />
+      </div>
+      <div className="chart-wrapper">
+        <h2>Temperature Data Visualization</h2>
+        <Column {...tempConfig} />
+      </div>
+      <div className="chart-wrapper">
+        <h2>Mask Usage Overview</h2>
+        <MaskPieChart />
+      </div>
+      <div className="chart-wrapper">
+        <h2>Hourly Mask Usage</h2>
+        <HourlyMaskBarChart />
+      </div>
     </div>
   );
 }
