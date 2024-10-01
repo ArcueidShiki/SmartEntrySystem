@@ -99,7 +99,58 @@ latest_prediction = {
 }
 
 
+## This is the function to get video from local camera
+
 def generate_frames():
+    global latest_prediction
+
+    # Open a connection to the laptop's camera (0 is usually the default camera)
+    camera = cv2.VideoCapture(0)
+
+    if not camera.isOpened():
+        print("Error: Could not open the camera.")
+        return
+
+    while True:
+        # Capture frame-by-frame from the laptop's camera
+        success, frame = camera.read()
+
+        if not success:
+            print("Error: Frame not captured correctly")
+            continue
+
+        # Resize the frame (optional, based on your needs)
+        frame = imutils.resize(frame, width=400)
+
+        # Call the mask detection function with the frame
+        (locs, preds) = detect_and_predict_mask(frame, faceNet, model)
+
+        # Process the predictions and draw bounding boxes
+        for (box, pred) in zip(locs, preds):
+            (startX, startY, endX, endY) = box
+            (mask, withoutMask) = pred
+            label = "Mask" if mask > withoutMask else "No Mask"
+            probability = max(mask, withoutMask) * 100
+            latest_prediction["label"] = label
+            latest_prediction["probability"] = probability
+            label_text = "{}: {:.2f}%".format(label, probability)
+            color = (0, 255, 0) if label == "Mask" else (0, 0, 255)
+
+            # Draw the label and bounding box on the frame
+            cv2.putText(frame, label_text, (startX, startY - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 2)
+            cv2.rectangle(frame, (startX, startY), (endX, endY), color, 2)
+
+        # Encode the frame in JPEG format
+        ret, buffer = cv2.imencode('.jpg', frame)
+        frame = buffer.tobytes()
+
+        # Yield the frame as a multipart message to be served in the response
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
+
+## This is the function to get video from raspberry pi
+def generate_frames1():
     global latest_prediction
     while True:
         url = 'http://172.20.10.4:8000/stream.mjpg'
