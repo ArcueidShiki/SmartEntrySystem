@@ -4,6 +4,7 @@ import io
 import time
 import smbus
 import logging
+import requests
 import RPi.GPIO as GPIO
 from http import server
 from RPLCD.gpio import CharLCD
@@ -11,31 +12,52 @@ from picamera2 import Picamera2
 from picamera2.outputs import FileOutput
 from threading import Condition, Thread
 from picamera2.encoders import JpegEncoder
-from flask import Flask, Response, jsonify, requests
+from flask import Flask, Response, jsonify
 
 app = Flask(__name__)
 
 # Servo motor configuration
+# Setup GPIO mode
 GPIO.setmode(GPIO.BCM)
-SERVO_PIN = 21
-GPIO.setup(SERVO_PIN, GPIO.OUT)
-PWM = GPIO.PWM(SERVO_PIN, 50)
-PWM.start(0)
+SERVO_PIN1 = 17
+SERVO_PIN2 = 18
+# Setup pins as output
+GPIO.setup(SERVO_PIN1, GPIO.OUT)
+GPIO.setup(SERVO_PIN2, GPIO.OUT)
+# Setup PWM for both servos, 50Hz
+PWM1 = GPIO.PWM(SERVO_PIN1, 50)
+PWM2 = GPIO.PWM(SERVO_PIN2, 50)
+
+# Start PWM with 0 duty cycle
+PWM1.start(0)
+PWM2.start(0)
+
+def setangle(pwm, angle):
+    # convert the angle to duty cycle and set it on the PWM pin
+    duty = angle / 18 + 2
+    pwm.ChangeDutyCycle(duty)
+
+# Init angle
+setangle(PWM1, 0)
+setangle(PWM1, 180)
 OPEN = 0
 CLOSE = 1
 
 # Temperature sensor configuration
 BUS = smbus.SMBus(1)
-mlx99614_address = 0x5A
+mlx90614_address = 0x5A
 
-# LCD configuration
+# LCD configuration PIN 11-16, 1-6
+# 7,8, 25, 24, 23, 18
+
 lcd = CharLCD(cols = 16,
               rows = 2,
               pin_rs = 7,
               pin_e = 8,
-              pins_data = [25, 24, 23, 18],
+              pins_data = [25, 24, 23, 10],
               numbering_mode = GPIO.BCM)
-DEFAULT_MSG = "Please wear mask and scan your temperature."
+# Max 32 length string. 16 x 2, LCD capacity.
+DEFAULT_MSG = "Please Wait..."
 
 def display_message(msg):
     lcd.clear()
@@ -92,18 +114,18 @@ def start_camera():
 camera_thread = Thread(target = start_camera)
 camera_thread.start()
 
-def set_angle(angle):
+def setangle(pwm, angle):
+    # convert the angle to duty cycle and set it on the PWM pin
     duty = angle / 18 + 2
-    GPIO.output(SERVO_PIN, True)
-    PWM.ChangeDutyCycle(duty)
-    time.sleep(1)
-    GPIO.output(SERVO_PIN, False)
-    PWM.ChangeDutyCycle(0)
+    pwm.ChangeDutyCycle(duty)
 
 def open_gate():
-    set_angle(0)
-    time.sleep(3)
-    set_angle(90)
+    setangle(PWM1, 135)
+    setangle(PWM2, 45)
+    time.sleep(4)
+    setangle(PWM1, 0)
+    setangle(PWM2, 180)
+    time.sleep(2)
 
 def get_result():
     RESULT_API = "http://172.20.10.11:5000/result"
