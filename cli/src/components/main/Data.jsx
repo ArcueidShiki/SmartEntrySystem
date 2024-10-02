@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Column } from '@ant-design/plots';
+import MaskPieChart from './MaskPieChart';  // Ensure the path is correct
+import HourlyMaskBarChart from './HourlyMaskBarChart';  // Ensure the path is correct
 import { forEach, groupBy } from 'lodash';
 import maskData from '../../data/mask_data.json';
 import tempData from '../../data/temp_data.json';
@@ -66,7 +68,7 @@ function Data() {
   };
 
   return (
-    <div className="charts-container">
+    <div className="data-container">
       <div className="chart-wrapper">
         <h2>Mask Data Visualization</h2>
         <Column {...maskConfig} />
@@ -75,8 +77,17 @@ function Data() {
         <h2>Temperature Data Visualization</h2>
         <Column {...tempConfig} />
       </div>
+      <div className="chart-wrapper">
+        <h2>Mask Usage Overview</h2>
+        <MaskPieChart />
+      </div>
+      <div className="chart-wrapper">
+        <h2>Hourly Mask Usage</h2>
+        <HourlyMaskBarChart />
+      </div>
     </div>
   );
 }
 
 export default Data;
+
