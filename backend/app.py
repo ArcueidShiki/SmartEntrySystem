@@ -114,7 +114,7 @@ latest_prediction = {
 
 ## This is the function to get video from local camera
 
-def generate_frames():
+def generate_frames1():
 
 
 
@@ -181,7 +181,7 @@ def generate_frames():
 
 
 ## This is the function to get video from raspberry pi
-def generate_frames1():
+def generate_frames():
     global latest_prediction
     while True:
         url = 'http://172.20.10.4:8000/stream.mjpg'
@@ -342,6 +342,21 @@ def get_entries():
             'mask_status': entry.mask_status,
             'final_result': entry.final_result,
             'image_path': entry.image_path
+        })
+    return jsonify(results)
+
+@app.route('/result', methods=['GET'])
+def get_results():
+    entries = Entry.query.all()
+    results = []
+    for entry in entries:
+        results.append({
+
+
+
+            'timestamp': entry.timestamp,
+            'final_result': entry.final_result
+
         })
     return jsonify(results)
 
