@@ -37,21 +37,21 @@ function PageContent() {
       });
 
     // Fetch image
-    fetch(`${API_URL}/api/current_image`)
-      .then(res => {
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        return res.blob();
-      })
-      .then(blob => {
-        const imageUrl = URL.createObjectURL(blob);
-        setImageUrl(imageUrl);
-      })
-      .catch(e => {
-        console.error("Error fetching image:", e);
-        setError(e.message);
-      });
+    // fetch(`${API_URL}/api/current_image`)
+    //   .then(res => {
+    //     if (!res.ok) {
+    //       throw new Error(`HTTP error! status: ${res.status}`);
+    //     }
+    //     return res.blob();
+    //   })
+    //   .then(blob => {
+    //     const imageUrl = URL.createObjectURL(blob);
+    //     setImageUrl(imageUrl);
+    //   })
+    //   .catch(e => {
+    //     console.error("Error fetching image:", e);
+    //     setError(e.message);
+    //   });
   };
 
   useEffect(() => {
