@@ -11,7 +11,7 @@ import time
 
 script = '''
     tell application "System Events"
-        tell process "Brave"
+        tell process "Chrome"
             set window_pos to get the position of window 1
             set window_size to get the size of window 1
             return {item 1 of window_pos, item 2 of window_pos, item 1 of window_size, item 2 of window_size}
