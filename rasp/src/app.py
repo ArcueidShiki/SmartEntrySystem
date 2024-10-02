@@ -37,12 +37,6 @@ def setangle(pwm, angle):
     duty = angle / 18 + 2
     pwm.ChangeDutyCycle(duty)
 
-# Init angle
-setangle(PWM1, 0)
-setangle(PWM1, 180)
-OPEN = 0
-CLOSE = 1
-
 # Temperature sensor configuration
 BUS = smbus.SMBus(1)
 mlx90614_address = 0x5A
@@ -64,7 +58,7 @@ def display_message(msg):
     lcd.write_string(msg)
 
 def read_temperature():
-    temp = BUS.read_word_data(mlx99614_address, 0x07)
+    temp = BUS.read_word_data(mlx90614_address, 0x07)
     return temp * 0.02 - 273.15
 
 @app.route('/temp', methods=['GET'])
@@ -122,37 +116,43 @@ def setangle(pwm, angle):
 def open_gate():
     setangle(PWM1, 135)
     setangle(PWM2, 45)
-    time.sleep(4)
+    time.sleep(2)
     setangle(PWM1, 0)
     setangle(PWM2, 180)
     time.sleep(2)
 
+# Init angle
+setangle(PWM1, 0)
+setangle(PWM1, 180)
+OPEN = True
+CLOSE = False
+
 def get_result():
-    RESULT_API = "http://172.20.10.11:5000/result"
-    while True:
-        try:
+    RESULT_API = "http://172.20.10.3:5000/result"
+    try:
+        while True:
             response = requests.get(RESULT_API)
+            print("Get reponse")
             if response.status_code == 200:
                 data = response.json()
                 result = data.get('result', CLOSE)
                 msg = data.get('message', DEFAULT_MSG)
+                print(data)
                 if result == OPEN:
-                    open_gate(result)
+                    open_gate()
                 # if not OPEN, remain close.
                 display_message(msg)
             else:
                 print(f"Failed to fetch result, status code: {response.status_code}")
-        except Exception as e:
-            print(f"Error fetching gate control result: {e}")
-        time.sleep(5)
+    except Exception as e:
+        PWM1.stop()
+        PWM2.stop()
+        GPIO.cleanup()
+        print(f"Error fetching gate control result: {e}")
 
 control_thread = Thread(target = get_result)
 control_thread.daemon = True
 control_thread.start()
 
 if __name__ == '__main__':
-    try:
-        app.run(host='0.0.0.0', port=8000, threaded=True)
-    finally:
-        PWM.stop()
-        GPIO.cleanup()
+    app.run(host='0.0.0.0', port=8000, threaded=True)
