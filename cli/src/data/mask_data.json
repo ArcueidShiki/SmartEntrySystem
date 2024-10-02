@@ -1,72 +1,12 @@
 [
   {
-    "date": "2024-09-01",
-    "value": 80,
+    "date": "2024-10-01",
+    "value": 6,
     "type": "masked"
   },
   {
-    "date": "2024-09-01",
-    "value": 20,
-    "type": "no mask"
-  },
-  {
-    "date": "2024-09-02",
-    "value": 90,
-    "type": "masked"
-  },
-  {
-    "date": "2024-09-02",
-    "value": 30,
-    "type": "no mask"
-  },
-  {
-    "date": "2024-09-03",
-    "value": 70,
-    "type": "masked"
-  },
-  {
-    "date": "2024-09-03",
-    "value": 40,
-    "type": "no mask"
-  },
-  {
-    "date": "2024-09-04",
-    "value": 100,
-    "type": "masked"
-  },
-  {
-    "date": "2024-09-04",
-    "value": 30,
-    "type": "no mask"
-  },
-  {
-    "date": "2024-09-05",
-    "value": 85,
-    "type": "masked"
-  },
-  {
-    "date": "2024-09-05",
-    "value": 30,
-    "type": "no mask"
-  },
-  {
-    "date": "2024-09-06",
-    "value": 110,
-    "type": "masked"
-  },
-  {
-    "date": "2024-09-06",
-    "value": 30,
-    "type": "no mask"
-  },
-  {
-    "date": "2024-09-07",
-    "value": 95,
-    "type": "masked"
-  },
-  {
-    "date": "2024-09-07",
-    "value": 30,
+    "date": "2024-10-01",
+    "value": 4,
     "type": "no mask"
   }
 ]
