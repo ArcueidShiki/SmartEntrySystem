@@ -128,7 +128,7 @@ OPEN = True
 CLOSE = False
 
 def get_result():
-    RESULT_API = "http://172.20.10.3:5000/result"
+    RESULT_API = "http://192.168.1.107:5000/result"
     try:
         while True:
             response = requests.get(RESULT_API)
@@ -138,12 +138,14 @@ def get_result():
                 result = data.get('result', CLOSE)
                 msg = data.get('message', DEFAULT_MSG)
                 print(data)
+                print(msg)
                 if result == OPEN:
                     open_gate()
                 # if not OPEN, remain close.
                 display_message(msg)
             else:
                 print(f"Failed to fetch result, status code: {response.status_code}")
+            time.sleep(10)
     except Exception as e:
         PWM1.stop()
         PWM2.stop()
