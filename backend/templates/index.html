@@ -29,7 +29,7 @@
                 <th>Temperature</th>
                 <th>Mask Status</th>
                 <th>Final Result</th>
-                <th>Image</th>
+                <!-- <th>Image</th> -->
             </tr>
         </thead>
         <tbody id="entries-table">
@@ -52,7 +52,6 @@
                         <td>${entry.temperature} °C</td>
                         <td>${entry.mask_status ? 'Yes' : 'No'}</td>
                         <td>${entry.final_result ? 'Open the door' : 'Close the door!!!!'}</td>
-                        <td><img src="${entry.image_path}" alt="Image" width="100"></td>
                     `;
 
                     tableBody.appendChild(row);

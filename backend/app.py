@@ -1,34 +1,23 @@
-import random
-import flask
-import pyautogui
-import pytesseract
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
+
 from webdriver_manager.chrome import ChromeDriverManager
-import json
 import threading
 from flask_cors import CORS
 from get_data_from_finalResult import store_data
 from screenshot_specific_area import capture_specified_area
 from convert_db_to_dashboard import convert_data_to_jason
-# from store_data_to_database import store_data
 
 from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 from tensorflow.keras.preprocessing.image import img_to_array
 from tensorflow.keras.models import load_model
-# from imutils.video import VideoStream
 from flask import Flask, render_template, Response, request, jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import numpy as np
-import imutils
-import time
-import os
 import cv2
 import socket
-import struct
 import requests
-# netsh advfirewall set allprofiles state off
+
+
 app = Flask(__name__)
 model = load_model("mask_detector.keras")
 prototxtPath = "face_detector/deploy.prototxt"
@@ -43,25 +32,15 @@ CORS(app)
 # Create the database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///entries.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['UPLOAD_FOLDER'] = 'static/images'
 
 db = SQLAlchemy(app)
 
 class Entry(db.Model):
-    # def __init__(self):  
     id = db.Column(db.Integer, primary_key=True)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     temperature = db.Column(db.Float, nullable=False)
     mask_status = db.Column(db.Boolean, nullable=False)
     final_result = db.Column(db.Boolean, nullable=False)
-    image_path = db.Column(db.String(100), nullable=False)
-
-    # def to_dict(self):
-    #     return {
-    #         'result': self.final_result
-    #     }
-
-
 
 
 with app.app_context():
@@ -84,7 +63,7 @@ def detect_and_predict_mask(frame, faceNet, model):
         confidence = detections[0, 0, i, 2]
 
         # Filter out weak detections
-        if confidence > 0.5:
+        if confidence > 0.8:
             box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
             (startX, startY, endX, endY) = box.astype("int")
 
@@ -117,134 +96,21 @@ latest_prediction = {
     "temperature": 0.0,
     "label": "",
     "probability": 0.0,
-    "final_result": ""
+    "final_result": "",
+    "result":False,
+    "message": ""
 }
 
 
-## This is the function to get video from local camera
-
-def generate_frames1():
-
-
-
-    global latest_prediction
-    global temperature
-
-    # Open a connection to the laptop's camera (0 is usually the default camera)
-    camera = cv2.VideoCapture(0)
-
-    if not camera.isOpened():
-        print("Error: Could not open the camera.")
-        return
-
-    while True:
-
-        # Fetch and return temperature from the given URL
-        temperature = 0.0
-        response = requests.get("http://172.20.10.4:8000/temp")
-        if response.status_code == 200:
-            print(response.json())
-            temperature = response.json().get("temperature")
-            print(type(temperature))
-            print(temperature)
-        else:
-            print(f"Failed to fetch temperature. Status code: {response.status_code}")
-
-
-
-        # Get the temperature for testing
-        # temperature_options = [35.5, 36.5, 37.5]
-         
-        # temperature = random.choice(temperature_options)
-
-        # Capture frame-by-frame from the laptop's camera
-        success, frame = camera.read()
-
-        if not success:
-            print("Error: Frame not captured correctly")
-            continue
-
-        # Resize the frame (optional, based on your needs)
-        frame = imutils.resize(frame, width=400)
-
-        # Call the mask detection function with the frame
-        (locs, preds) = detect_and_predict_mask(frame, faceNet, model)
-
-        # Process the predictions and draw bounding boxes
-        for (box, pred) in zip(locs, preds):
-            (startX, startY, endX, endY) = box
-            (mask, withoutMask) = pred
-            label = "Mask" if mask > withoutMask else "No Mask"
-            probability = max(mask, withoutMask) * 100
-            latest_prediction["temperature"] = temperature
-            latest_prediction["label"] = label
-            latest_prediction["probability"] = probability
-
-            # Final Result
-            if latest_prediction["label"] == "Mask" and latest_prediction["temperature"] <= 37:
-                latest_prediction["final_result"] = "Open the door"
-            else:
-                latest_prediction["final_result"] = "Close the door"
-
-            label_text = "{}: {:.2f}%".format(label, probability)
-            color = (0, 255, 0) if label == "Mask" else (0, 0, 255)
-
-            # Draw the label and bounding box on the frame
-            cv2.putText(frame, label_text, (startX, startY - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 2)
-            cv2.rectangle(frame, (startX, startY), (endX, endY), color, 2)
-
-        # Encode the frame in JPEG format
-        ret, buffer = cv2.imencode('.jpg', frame)
-        frame = buffer.tobytes()
-
-        # Yield the frame as a multipart message to be served in the response
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-
-def get_temperature():
-    response = requests.get("http://172.20.10.4:8000/temp")
-    if response.status_code == 200:
-        # print(response.json())
-        temperature = response.json().get("temperature")
-        return temperature
-        # print(type(temperature))
-        # print(temperature)
-    else:
-        print(f"Failed to fetch temperature. Status code: {response.status_code}")
-
-## This is the function to get video from raspberry pi
 def generate_frames():
     global latest_prediction
 
-    # global temperature
-
     while True:
-        # temperature = get_temperature()
-                # Fetch and return temperature from the given URL
-
-
-
-        # # Get the temperature for testing
-        # temperature_options = [35.5, 36.5, 37.5]
-         
-        # temperature = random.choice(temperature_options)
-
-
-        temperature = 0.0
-        response = requests.get("http://172.20.10.4:8000/temp")
-        if response.status_code == 200:
-            print(response.json())
-            temperature = response.json().get("temperature")
-            print(type(temperature))
-            print(temperature)
-        else:
-            print(f"Failed to fetch temperature. Status code: {response.status_code}")
-
-
-
-        url = 'http://172.20.10.4:8000/stream.mjpg'
+        # Fetch the video stream
+        url = 'http://192.168.1.106:8000/stream.mjpg'
         response = requests.get(url, stream=True)
         bytes = b''
+        
         if response.status_code == 200:
             print("Connection successful! Processing MJPEG stream...")
             for chunk in response.iter_content(chunk_size=1024):
@@ -258,7 +124,20 @@ def generate_frames():
                     if frame is None:
                         print("frame is none")
                         continue
-                    frame = imutils.resize(frame, width=400)
+                    
+                    # Refetch temperature during each frame processing loop
+                    temperature = 0.0
+                    temp_response = requests.get("http://192.168.1.106:8000/temp")
+                    if temp_response.status_code == 200:
+                        temperature = temp_response.json().get("temperature")
+                        # print(f"Temperature: {temperature}")
+                    else:
+                        print(f"Failed to fetch temperature. Status code: {temp_response.status_code}")
+
+                    # Resize frame (if needed)
+                    # frame = imutils.resize(frame, width=400)
+
+                    # Detect mask and make predictions
                     (locs, preds) = detect_and_predict_mask(frame, faceNet, model)
                     for (box, pred) in zip(locs, preds):
                         (startX, startY, endX, endY) = box
@@ -266,94 +145,61 @@ def generate_frames():
                         label = "Mask" if mask > withoutMask else "No Mask"
                         probability = max(mask, withoutMask) * 100
 
+                        # Update latest prediction with temperature and mask detection
                         latest_prediction["temperature"] = temperature
-                        print(latest_prediction["temperature"], temperature)
                         latest_prediction["label"] = label
                         latest_prediction["probability"] = probability
 
-                        # Final Result
+                        # Final Result decision based on mask and temperature
                         if latest_prediction["label"] == "Mask" and latest_prediction["temperature"] <= 37:
                             latest_prediction["final_result"] = "Open the door"
+                            latest_prediction["result"] = True
+                            latest_prediction["message"] = "Welcome"
                         else:
                             latest_prediction["final_result"] = "Close the door"
-
-
+                            latest_prediction["result"] = False
+                            if latest_prediction["label"] == "No Mask":
+                                latest_prediction["message"] = "Sorry, you must wear a mask"
+                            else:
+                                latest_prediction["message"] = "Sorry, your temperatue is higher than 37C"
+                        print(latest_prediction)
+                        # Draw label and bounding box
                         label_text = "{}: {:.2f}%".format(label, probability)
                         color = (0, 255, 0) if label == "Mask" else (0, 0, 255)
                         cv2.putText(frame, label_text, (startX, startY - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 2)
                         cv2.rectangle(frame, (startX, startY), (endX, endY), color, 2)
+
+                    # Encode the frame to JPEG
                     ret, buffer = cv2.imencode('.jpg', frame)
                     frame = buffer.tobytes()
+
+                    # Yield the frame as a multipart message
                     yield (b'--frame\r\n'
-                        b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-        
+                           b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
         else:
             print(f"Failed to connect to the stream. Status code: {response.status_code}")
 
 
 
-def generate_single_frame():
+
+def upload_data(temperature, label, final_result):
+    url = 'http://127.0.0.1:5000/entry'
+    data = {
+        'temperature': temperature,
+        'mask_status': label,
+        'final_result': final_result  # Ensure final_result is included
+    }
+
     try:
-        # Initialize the camera (0 is the default camera)
-        camera = cv2.VideoCapture(0)
-
-        # Check if the camera opened successfully
-        if not camera.isOpened():
-            print("Error: Could not open camera.")
-            return None
-
-        # Capture a single frame from the camera
-        ret, frame = camera.read()
-
-        # Release the camera
-        camera.release()
-
-        # Check if frame is captured successfully
-        if not ret:
-            print("Error: Could not read frame.")
-            return None
-        
-        # Detect faces and predict mask/no mask
-        locs, preds = detect_and_predict_mask(frame, faceNet, model)
-
-        # Loop over the detected face locations and their corresponding predictions
-        for (box, pred) in zip(locs, preds):
-            (startX, startY, endX, endY) = box
-            (mask, withoutMask) = pred
-            
-            # Determine the class label and color we'll use to draw the bounding box and text
-            label = "Mask" if mask > withoutMask else "No Mask"
-            color = (0, 255, 0) if label == "Mask" else (0, 0, 255)
-            
-            # Include the probability in the label
-            label = "{}: {:.2f}%".format(label, max(mask, withoutMask) * 100)
-            
-            # Display the label and bounding box rectangle on the output frame
-            cv2.putText(frame, label, (startX, startY - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 2)
-            cv2.rectangle(frame, (startX, startY), (endX, endY), color, 2)
-
-        # Save the captured frame to the static folder
-        # Format the current date and time
-        # current_time = datetime.now().strftime("%Y%m%d_%H%M%S")
-
-        # Use the formatted date and time in the file path
-        # image_path = os.path.join("static/images", f"captured_image_{current_time}.jpg")
-
-        image_path = os.path.join("static/images", "captured_image.jpg")
-        cv2.imwrite(image_path, frame)
-
-        # Get the temperature
-        # temperature = 35.5
-        # store_data(temperature, label, image_path)
-
-        # Encode the frame in JPEG format
-        ret, buffer = cv2.imencode('.jpg', frame)
-        frame = buffer.tobytes()
-        return frame, label
-
+        response = requests.post(url, data=data)
+        if response.status_code == 201:
+            print("Entry added successfully.")
+        else:
+            print(f"Failed to add entry: {response.text}")
     except Exception as e:
-        print(f"Error in processing single frame: {e}")
-        return None
+        print(f"Error in store_data: {e}")
+
+
 
 
 @app.route('/')
@@ -364,14 +210,7 @@ def index():
 def video_feed():
     return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-@app.route('/image_feed')
-def image_feed():
-    frame = generate_single_frame()
-    if frame is None:
-        return Response(status=500)
-    return Response(frame, mimetype='image/jpeg')
 
-    
 
 @app.route('/entry', methods=['POST'])
 def add_entry():
@@ -379,16 +218,14 @@ def add_entry():
         temperature = float(request.form.get('temperature'))  # Ensure this is a float
         mask_status = request.form.get('mask_status') == 'True'  # Convert to boolean
         final_result = request.form.get('final_result') == 'True'  # Convert to boolean
-        image_path = request.files['image'].filename  # Adjust as necessary
 
         # Log the received data
-        print(f"Received: temperature={temperature}, mask_status={mask_status}, final_result={final_result}, image_path={image_path}")
+        print(f"Received: temperature={temperature}, mask_status={mask_status}, final_result={final_result}")
 
         new_entry = Entry(
             temperature=temperature,
             mask_status=mask_status,
-            final_result=final_result,
-            image_path=image_path
+            final_result=final_result
         )
 
         db.session.add(new_entry)
@@ -409,77 +246,32 @@ def get_entries():
             'timestamp': entry.timestamp,
             'temperature': entry.temperature,
             'mask_status': entry.mask_status,
-            'final_result': entry.final_result,
-            'image_path': entry.image_path
+            'final_result': entry.final_result
         })
     return jsonify(results)
 
 @app.route('/result', methods=['GET'])
 def get_results():
-    entries = Entry.query.all()
-    lastentry = entries[-1]
-    return jsonify({"result": lastentry.final_result})
-    # for entry in entries:
-    #     results.append({
+    print("Raspberry Pi got the result of the door................................................")
+    print(f"The Result is: {latest_prediction}")
+    temperature = latest_prediction["temperature"]
+    final_result = latest_prediction["result"]
+    if latest_prediction["label"] == "Mask":
+        mask_status = True
+    else:
+        mask_status = False
+    upload_data(temperature, mask_status, final_result)
+    return jsonify({"result":latest_prediction["result"], "message": latest_prediction["message"]})
 
 
-
-    #         'timestamp': entry.timestamp,
-    #         'final_result': entry.final_result
-
-    #     })
-    # return jsonify(results)[-1]
-
-@app.route('/api/real_time_data', methods=['GET'])
-def get_real_time_data():
-    latest_entry = Entry.query.order_by(Entry.timestamp.desc()).first()
-    if latest_entry:
-        return jsonify({
-            'current_reading': {
-                'temperature': latest_entry.temperature,
-                'mask_status': latest_entry.mask_status,
-                'timestamp': latest_entry.timestamp,
-                'image_path': latest_entry.image_path  # Include the image path
-            }
-        })
-    return jsonify({'error': 'No data available'}), 404
-
-@app.route('/api/current_image', methods=['GET'])
-def get_current_image():
-    latest_entry = Entry.query.order_by(Entry.timestamp.desc()).first()
-    if latest_entry:
-        return send_from_directory(app.config['UPLOAD_FOLDER'], latest_entry.image_path.split('/')[-1])
-    return jsonify({'error': 'No image available'}), 404
 
 @app.route('/latest_prediction', methods=['GET'])
 def get_latest_prediction():
+    print("Dashboard got the latest_prediction")
     return jsonify(latest_prediction)
 
     
 
-
-@app.route('/images/<filename>')
-def get_image(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
-
-
-
-def capture_screenshot():
-
-    # Get the current time for the screenshot filename
-    current_time = datetime.now().strftime("%Y%m%d_%H%M%S")
-    screenshot_filename = f"screenshot_{current_time}.png"
-
-    # Capture the screenshot
-    screenshot = pyautogui.screenshot()
-    screenshot.save(screenshot_filename)
-    print(f"Screenshot saved as {screenshot_filename}")
-
-
-
-
-
-# Function to start  background task
 
 def start_background_task():
     task_thread = threading.Thread(target=convert_data_to_jason)
@@ -487,45 +279,10 @@ def start_background_task():
     task_thread.start()
 
 
-# def run_flask_app():
-#     global flask_running
-#     app.run(host='0.0.0.0', port=5000)
 
-def screenshot():
-    try:
-        
-
-        # Capture the screenshot in a loop
-        while True:
-            if latest_prediction["label"]:
-                screenshot_path = capture_specified_area("real-time", "last")
-                
-
-                # upload the data to the database
-                store_data(screenshot_path)
-            else:
-                continue
-    except KeyboardInterrupt:
-        print("Stopping screenshot capture.")
+start_background_task()
 
 
 if __name__ == "__main__":
     
     app.run(host='0.0.0.0', port=5000)
-    # Start the Flask app in a separate thread
-    screenshot_thread = threading.Thread(target=screenshot)
-    screenshot_thread.start()
-
-
-
-    start_background_task()
-
-
-
-
-
-    
-
-    # Wait for the Flask app to finish
-    start_background_task.join()
-    screenshot_thread.join()
