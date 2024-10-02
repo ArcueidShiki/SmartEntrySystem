@@ -48,12 +48,21 @@ app.config['UPLOAD_FOLDER'] = 'static/images'
 db = SQLAlchemy(app)
 
 class Entry(db.Model):
+    # def __init__(self):  
     id = db.Column(db.Integer, primary_key=True)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     temperature = db.Column(db.Float, nullable=False)
     mask_status = db.Column(db.Boolean, nullable=False)
     final_result = db.Column(db.Boolean, nullable=False)
     image_path = db.Column(db.String(100), nullable=False)
+
+    # def to_dict(self):
+    #     return {
+    #         'result': self.final_result
+    #     }
+
+
+
 
 with app.app_context():
     db.create_all()
@@ -131,22 +140,22 @@ def generate_frames1():
     while True:
 
         # Fetch and return temperature from the given URL
-
-        # response = requests.get("http://172.20.10.4:8000/temp")
-        # if response.status_code == 200:
-        #     print(response.json())
-        #     temperature = response.json().get("temperature")
-        #     print(type(temperature))
-        #     print(temperature)
-        # else:
-        #     print(f"Failed to fetch temperature. Status code: {response.status_code}")
+        temperature = 0.0
+        response = requests.get("http://172.20.10.4:8000/temp")
+        if response.status_code == 200:
+            print(response.json())
+            temperature = response.json().get("temperature")
+            print(type(temperature))
+            print(temperature)
+        else:
+            print(f"Failed to fetch temperature. Status code: {response.status_code}")
 
 
 
         # Get the temperature for testing
-        temperature_options = [35.5, 36.5, 37.5]
+        # temperature_options = [35.5, 36.5, 37.5]
          
-        temperature = random.choice(temperature_options)
+        # temperature = random.choice(temperature_options)
 
         # Capture frame-by-frame from the laptop's camera
         success, frame = camera.read()
@@ -192,6 +201,16 @@ def generate_frames1():
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
+def get_temperature():
+    response = requests.get("http://172.20.10.4:8000/temp")
+    if response.status_code == 200:
+        # print(response.json())
+        temperature = response.json().get("temperature")
+        return temperature
+        # print(type(temperature))
+        # print(temperature)
+    else:
+        print(f"Failed to fetch temperature. Status code: {response.status_code}")
 
 ## This is the function to get video from raspberry pi
 def generate_frames():
@@ -200,11 +219,27 @@ def generate_frames():
     # global temperature
 
     while True:
+        # temperature = get_temperature()
+                # Fetch and return temperature from the given URL
+
+
 
         # # Get the temperature for testing
         # temperature_options = [35.5, 36.5, 37.5]
          
         # temperature = random.choice(temperature_options)
+
+
+        temperature = 0.0
+        response = requests.get("http://172.20.10.4:8000/temp")
+        if response.status_code == 200:
+            print(response.json())
+            temperature = response.json().get("temperature")
+            print(type(temperature))
+            print(temperature)
+        else:
+            print(f"Failed to fetch temperature. Status code: {response.status_code}")
+
 
 
         url = 'http://172.20.10.4:8000/stream.mjpg'
@@ -231,16 +266,16 @@ def generate_frames():
                         label = "Mask" if mask > withoutMask else "No Mask"
                         probability = max(mask, withoutMask) * 100
 
-                        # latest_prediction["temperature"] = temperature
-
+                        latest_prediction["temperature"] = temperature
+                        print(latest_prediction["temperature"], temperature)
                         latest_prediction["label"] = label
                         latest_prediction["probability"] = probability
 
-                        # # Final Result
-                        # if latest_prediction["label"] == "Mask" and latest_prediction["temperature"] <= 37:
-                        #     latest_prediction["final_result"] = "Open the door"
-                        # else:
-                        #     latest_prediction["final_result"] = "Close the door"
+                        # Final Result
+                        if latest_prediction["label"] == "Mask" and latest_prediction["temperature"] <= 37:
+                            latest_prediction["final_result"] = "Open the door"
+                        else:
+                            latest_prediction["final_result"] = "Close the door"
 
 
                         label_text = "{}: {:.2f}%".format(label, probability)
@@ -382,17 +417,18 @@ def get_entries():
 @app.route('/result', methods=['GET'])
 def get_results():
     entries = Entry.query.all()
-    results = []
-    for entry in entries:
-        results.append({
+    lastentry = entries[-1]
+    return jsonify({"result": lastentry.final_result})
+    # for entry in entries:
+    #     results.append({
 
 
 
-            'timestamp': entry.timestamp,
-            'final_result': entry.final_result
+    #         'timestamp': entry.timestamp,
+    #         'final_result': entry.final_result
 
-        })
-    return jsonify(results)
+    #     })
+    # return jsonify(results)[-1]
 
 @app.route('/api/real_time_data', methods=['GET'])
 def get_real_time_data():
@@ -451,32 +487,11 @@ def start_background_task():
     task_thread.start()
 
 
-def run_flask_app():
-    global flask_running
-    app.run(host='0.0.0.0', port=5000)
+# def run_flask_app():
+#     global flask_running
+#     app.run(host='0.0.0.0', port=5000)
 
-
-
-if __name__ == "__main__":
-    
-
-    # Start the Flask app in a separate thread
-    flask_thread = threading.Thread(target=run_flask_app)
-    flask_thread.start()
-
-    # Wait until the Flask app is running by checking for a response
-    while True:
-        try:
-            # Make a request to the Flask app to check if it's running
-            response = requests.get("http://127.0.0.1:5000")  # Adjust the endpoint as necessary
-            if response.status_code == 200:
-                print("Flask app is running.")
-                break  # Exit the loop if Flask is up
-        except requests.ConnectionError:
-            time.sleep(0.1)  # Wait a bit before retrying
-
-    start_background_task()
-
+def screenshot():
     try:
         
 
@@ -493,7 +508,24 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("Stopping screenshot capture.")
 
+
+if __name__ == "__main__":
+    
+    app.run(host='0.0.0.0', port=5000)
+    # Start the Flask app in a separate thread
+    screenshot_thread = threading.Thread(target=screenshot)
+    screenshot_thread.start()
+
+
+
+    start_background_task()
+
+
+
+
+
     
 
     # Wait for the Flask app to finish
-    flask_thread.join()
+    start_background_task.join()
+    screenshot_thread.join()
