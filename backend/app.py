@@ -10,6 +10,7 @@ import threading
 from flask_cors import CORS
 from get_data_from_finalResult import store_data
 from screenshot_specific_area import capture_specified_area
+from convert_db_to_dashboard import convert_data_to_jason
 # from store_data_to_database import store_data
 
 from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
@@ -393,22 +394,43 @@ def capture_screenshot():
 
 
 
+# Function to start  background task
 
+def start_background_task():
+    task_thread = threading.Thread(target=convert_data_to_jason)
+    task_thread.daemon = True
+    task_thread.start()
+
+
+def run_flask_app():
+    global flask_running
+    app.run(host='0.0.0.0', port=5000)
 
 
 
 if __name__ == "__main__":
+    
 
-    # app.run(host='0.0.0.0', port=5000)
-
-    # capture_screenshot_from_localhost()
-
-        # Start the Flask app in a separate thread
-    flask_thread = threading.Thread(target=app.run, kwargs={'host': '0.0.0.0', 'port': 5000})
+    # Start the Flask app in a separate thread
+    flask_thread = threading.Thread(target=run_flask_app)
     flask_thread.start()
 
+    # Wait until the Flask app is running by checking for a response
+    while True:
+        try:
+            # Make a request to the Flask app to check if it's running
+            response = requests.get("http://127.0.0.1:5000")  # Adjust the endpoint as necessary
+            if response.status_code == 200:
+                print("Flask app is running.")
+                break  # Exit the loop if Flask is up
+        except requests.ConnectionError:
+            time.sleep(0.1)  # Wait a bit before retrying
+
+    start_background_task()
 
     try:
+        
+
         # Capture the screenshot in a loop
         while True:
             if latest_prediction["label"]:
@@ -421,6 +443,8 @@ if __name__ == "__main__":
                 continue
     except KeyboardInterrupt:
         print("Stopping screenshot capture.")
+
+    
 
     # Wait for the Flask app to finish
     flask_thread.join()
