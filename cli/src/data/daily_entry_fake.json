@@ -1,0 +1,12 @@
+{
+  "data": [
+    {
+      "type": "successful",
+      "value": 95
+    },
+    {
+      "type": "failed",
+      "value": 7
+    }
+  ]
+}
