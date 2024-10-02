@@ -130,6 +130,19 @@ def generate_frames1():
 
     while True:
 
+        # Fetch and return temperature from the given URL
+
+        # response = requests.get("http://172.20.10.4:8000/temp")
+        # if response.status_code == 200:
+        #     print(response.json())
+        #     temperature = response.json().get("temperature")
+        #     print(type(temperature))
+        #     print(temperature)
+        # else:
+        #     print(f"Failed to fetch temperature. Status code: {response.status_code}")
+
+
+
         # Get the temperature for testing
         temperature_options = [35.5, 36.5, 37.5]
          
@@ -183,7 +196,17 @@ def generate_frames1():
 ## This is the function to get video from raspberry pi
 def generate_frames():
     global latest_prediction
+
+    # global temperature
+
     while True:
+
+        # # Get the temperature for testing
+        # temperature_options = [35.5, 36.5, 37.5]
+         
+        # temperature = random.choice(temperature_options)
+
+
         url = 'http://172.20.10.4:8000/stream.mjpg'
         response = requests.get(url, stream=True)
         bytes = b''
@@ -207,8 +230,19 @@ def generate_frames():
                         (mask, withoutMask) = pred
                         label = "Mask" if mask > withoutMask else "No Mask"
                         probability = max(mask, withoutMask) * 100
+
+                        # latest_prediction["temperature"] = temperature
+
                         latest_prediction["label"] = label
                         latest_prediction["probability"] = probability
+
+                        # # Final Result
+                        # if latest_prediction["label"] == "Mask" and latest_prediction["temperature"] <= 37:
+                        #     latest_prediction["final_result"] = "Open the door"
+                        # else:
+                        #     latest_prediction["final_result"] = "Close the door"
+
+
                         label_text = "{}: {:.2f}%".format(label, probability)
                         color = (0, 255, 0) if label == "Mask" else (0, 0, 255)
                         cv2.putText(frame, label_text, (startX, startY - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 2)
