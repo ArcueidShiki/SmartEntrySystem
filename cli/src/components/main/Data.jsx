@@ -6,6 +6,7 @@ import { forEach, groupBy } from 'lodash';
 import maskData from '../../data/mask_data_fake.json';
 import tempData from '../../data/temp_data_fake.json';
 import dailyEntriesData from '../../data/daily_entry_fake.json';
+import dailyTempData from '../../data/daily_temp_fake.json';
 import './data.css';
 
 function Data() {
@@ -68,7 +69,7 @@ function Data() {
     annotations: createAnnotations(tempChartData),
   };
 
-const pieChartConfig = {
+const pieChartConfig1 = {
     data: dailyEntriesData.data,
     angleField: 'value',
     colorField: 'type',
@@ -82,6 +83,35 @@ const pieChartConfig = {
         title: false,
         position: 'right',
         rowPadding: 5,
+      },
+    },
+  };
+
+const pieChartConfig2 = {
+    data:dailyTempData.data,
+    angleField: 'value',
+    colorField: 'temperature',
+    legend: false,
+    innerRadius: 0.6,
+    labels: [
+      { text: 'temperature', style: { fontSize: 10, fontWeight: 'bold' } },
+      {
+        text: (d, i, data) => (i < data.length - 3 ? d.value : ''),
+        style: {
+          fontSize: 9,
+          dy: 12,
+        },
+      },
+    ],
+    style: {
+      stroke: '#fff',
+      inset: 1,
+      radius: 10,
+    },
+    scale: {
+      color: {
+        palette: 'spectral',
+        offset: (t) => t * 0.8 + 0.1,
       },
     },
   };
@@ -104,7 +134,11 @@ return (
     <div className="lower-section">
       <div className="chart-wrapper">
         <h2>Daily Entries Chart</h2>
-        <Pie {...pieChartConfig} />
+        <Pie {...pieChartConfig1} />
+      </div>
+       <div className="chart-wrapper">
+        <h2>Daily Temperature Distribution</h2>
+        <Pie {...pieChartConfig2} />
       </div>
     </div>
   </div>
