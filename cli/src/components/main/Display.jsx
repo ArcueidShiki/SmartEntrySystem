@@ -25,7 +25,7 @@ function PageContent() {
       })
       .then(data => {
         console.log("Fetched data:", data);
-        // setCurrentReading(data.current_reading);
+        setCurrentReading(data.current_reading);
         setCurrentReading(data);
         setLastUpdated(new Date().toLocaleString()); // Set the last updated time
         setIsLoading(false);
@@ -57,7 +57,7 @@ function PageContent() {
   useEffect(() => {
     fetchData();
     // Set up polling every 5 seconds
-    const interval = setInterval(fetchData, 5000);
+    const interval = setInterval(fetchData, 3000);
     return () => clearInterval(interval);
   }, []);
 
@@ -72,11 +72,11 @@ function PageContent() {
           style={{ maxWidth: '100%', height: 'auto' }}
         />
         </div>
-        {imageUrl ? (
+        {/* {imageUrl ? (
           <img src={imageUrl} alt="Real-time camera feed" style={{maxWidth: '100%', height: 'auto'}} />
         ) : (
           <p>Loading image...</p>
-        )}
+        )} */}
       </div>
       <div className="lower-section">
         {isLoading ? (
@@ -97,6 +97,9 @@ function PageContent() {
             </div>
             <div className="text-box">
               <h2>Temperature: {currentReading.temperature}°C</h2>
+            </div>
+            <div className="text-box">
+              <h2>Final Result: {currentReading.final_result}</h2>
             </div>
             {/* <div className="text-box">
               <h2>Mask: {currentReading.mask_status ? "True" : "False"}</h2>

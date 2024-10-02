@@ -1,7 +1,16 @@
+import random
+import flask
+import pyautogui
+import pytesseract
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 import json
 import threading
 from flask_cors import CORS
-from store_data_to_database import store_data
+from get_data_from_finalResult import store_data
+from screenshot_specific_area import capture_specified_area
+# from store_data_to_database import store_data
 
 from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 from tensorflow.keras.preprocessing.image import img_to_array
@@ -42,144 +51,174 @@ class Entry(db.Model):
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     temperature = db.Column(db.Float, nullable=False)
     mask_status = db.Column(db.Boolean, nullable=False)
+    final_result = db.Column(db.Boolean, nullable=False)
     image_path = db.Column(db.String(100), nullable=False)
 
 with app.app_context():
     db.create_all()
 
 
-
-def detect_and_predict_mask(frame, faceNet, maskNet):
-    # Grab the dimensions of the frame and then construct a blob
+def detect_and_predict_mask(frame, faceNet, model):
+    # Detect faces in the frame and get predictions
     (h, w) = frame.shape[:2]
     blob = cv2.dnn.blobFromImage(frame, 1.0, (300, 300), (104.0, 177.0, 123.0))
-    # pass blob through the network and obtain the face detections
     faceNet.setInput(blob)
     detections = faceNet.forward()
 
-    # initialize our list of faces, their corresponding lcoations,
-    # and the list of predicitons from our face mask network
     faces = []
     locs = []
     preds = []
 
+    # Loop over the detections
     for i in range(0, detections.shape[2]):
-        # extract the confidence (i.e. probability) associated with the detection
         confidence = detections[0, 0, i, 2]
-        # filter out weak detections by ensuring the confidence is greater thatn the minimum confidence
+
+        # Filter out weak detections
         if confidence > 0.5:
-            # compute the (x,y)-coordinates of the bounding box for the object
             box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
             (startX, startY, endX, endY) = box.astype("int")
-            # ensure the bounding boxed fall within the dimensionss of the frame
-            (endX, endY) = (min(w, endX), min(h, endY))
-            # extract the face ROI, convert it from BGR to RGB channel
-            # ordering, resize it to 224x224, and preprocess it
+
+            # Ensure the bounding box coordinates are within the frame dimensions
+            startX, startY = max(0, startX), max(0, startY)
+            endX, endY = min(w, endX), min(h, endY)
+
+            # Extract the face ROI, ensure it's not empty
             face = frame[startY:endY, startX:endX]
+            if face.size == 0:
+                continue  # Skip empty face regions
+
             face = cv2.cvtColor(face, cv2.COLOR_BGR2RGB)
             face = cv2.resize(face, (224, 224))
             face = img_to_array(face)
             face = preprocess_input(face)
-            # add the face and bounding boxed to their respective lists
+
             faces.append(face)
             locs.append((startX, startY, endX, endY))
-        
-    # only make a predictionss if at least one face was detected
+
+    # Make a prediction if any faces are found
     if len(faces) > 0:
         faces = np.array(faces, dtype="float32")
-        preds = maskNet.predict(faces, batch_size=32)
-    # return a 2-tuple of the face locations and their corresponding locations
+        preds = model.predict(faces, batch_size=32)
+
     return (locs, preds)
     
 
 latest_prediction = {
+    "temperature": 0.0,
     "label": "",
-    "probability": 0.0
+    "probability": 0.0,
+    "final_result": ""
 }
 
 
+## This is the function to get video from local camera
+
 def generate_frames():
+
+
+
     global latest_prediction
+    global temperature
+
+    # Open a connection to the laptop's camera (0 is usually the default camera)
     camera = cv2.VideoCapture(0)
+
+    if not camera.isOpened():
+        print("Error: Could not open the camera.")
+        return
+
     while True:
+
+        # Get the temperature for testing
+        temperature_options = [35.5, 36.5, 37.5]
+         
+        temperature = random.choice(temperature_options)
+
+        # Capture frame-by-frame from the laptop's camera
         success, frame = camera.read()
+
         if not success:
             print("Error: Frame not captured correctly")
             continue
-        
+
+        # Resize the frame (optional, based on your needs)
         frame = imutils.resize(frame, width=400)
+
+        # Call the mask detection function with the frame
         (locs, preds) = detect_and_predict_mask(frame, faceNet, model)
 
+        # Process the predictions and draw bounding boxes
         for (box, pred) in zip(locs, preds):
             (startX, startY, endX, endY) = box
             (mask, withoutMask) = pred
             label = "Mask" if mask > withoutMask else "No Mask"
             probability = max(mask, withoutMask) * 100
-
-            # Update the latest prediction
+            latest_prediction["temperature"] = temperature
             latest_prediction["label"] = label
             latest_prediction["probability"] = probability
 
+            # Final Result
+            if latest_prediction["label"] == "Mask" and latest_prediction["temperature"] <= 37:
+                latest_prediction["final_result"] = "Open the door"
+            else:
+                latest_prediction["final_result"] = "Close the door"
+
             label_text = "{}: {:.2f}%".format(label, probability)
             color = (0, 255, 0) if label == "Mask" else (0, 0, 255)
+
+            # Draw the label and bounding box on the frame
             cv2.putText(frame, label_text, (startX, startY - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 2)
             cv2.rectangle(frame, (startX, startY), (endX, endY), color, 2)
 
+        # Encode the frame in JPEG format
         ret, buffer = cv2.imencode('.jpg', frame)
         frame = buffer.tobytes()
+
+        # Yield the frame as a multipart message to be served in the response
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 
-
-
-# This is the code made by Jingtong
-
-# def generate_frames():
-#     server_socket.listen(1)
-#     print("Waiting for connection from Raspberry Pi...")
-#     client_socket, addr = server_socket.accept()
-#     while True:
-#         try:
-#             image_size = int.from_bytes(client_socket.recv(4), 'big')
-#             # Receive the image data
-#             image_data = b''
-#             while len(image_data) < image_size:
-#                 packet = client_socket.recv(4096)
-#                 if not packet:
-#                     break
-#                 image_data += packet
-
-#             # Save the received image to the specified path
-#             with open("image.jpg", 'wb') as image_file:
-#                 image_file.write(image_data)
-            
-#             frame = cv2.imread("image.jpg")
-#             if frame is None or frame.size == 0:
-#                 print("Error: Frame not captured correctly")
-#                 continue
-#             frame = imutils.resize(frame, width=400)
-#             (locs, preds) = detect_and_predict_mask(frame, faceNet, model)
-#             # Loop over the detected face locations and their corresponding locations
-#             for (box, pred) in zip(locs, preds):
-#                 (startX, startY, endX, endY) = box
-#                 (mask, withoutMask) = pred
-#                 # Determin the class label and color we'll sue to draw the bounding box and text
-#                 label = "Mask" if mask > withoutMask else "No Mask"
-#                 color = (0, 255, 0) if label == "Mask" else (0, 0, 255)
-#                 # Include the probability in the label
-#                 label = "{}: {:.2f}%".format(label, max(mask, withoutMask) * 100)
-#                 # Display the label and bounding box rectangle on the output frame
-#                 cv2.putText(frame, label, (startX, startY - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 2)
-#                 cv2.rectangle(frame, (startX, startY), (endX, endY), color, 2)
-#             ret, buffer = cv2.imencode('.jpg', frame)
-#             frame = buffer.tobytes()
-#             yield (b'--frame\r\n'
-#                     b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-#         except Exception as e:
-#             print(f"Error in receiving video frame: {e}")
-#             client_socket.close()
-#             client_socket, addr = server_socket.accept()
+## This is the function to get video from raspberry pi
+def generate_frames1():
+    global latest_prediction
+    while True:
+        url = 'http://172.20.10.4:8000/stream.mjpg'
+        response = requests.get(url, stream=True)
+        bytes = b''
+        if response.status_code == 200:
+            print("Connection successful! Processing MJPEG stream...")
+            for chunk in response.iter_content(chunk_size=1024):
+                bytes += chunk
+                a = bytes.find(b'\xff\xd8')  # Start of JPEG frame
+                b = bytes.find(b'\xff\xd9')  # End of JPEG frame
+                if a != -1 and b != -1:
+                    jpg = bytes[a:b+2]  # Extract the JPEG image
+                    bytes = bytes[b+2:]  # Reset the byte array
+                    frame = cv2.imdecode(np.frombuffer(jpg, dtype=np.uint8), cv2.IMREAD_COLOR)
+                    if frame is None:
+                        print("frame is none")
+                        continue
+                    frame = imutils.resize(frame, width=400)
+                    (locs, preds) = detect_and_predict_mask(frame, faceNet, model)
+                    for (box, pred) in zip(locs, preds):
+                        (startX, startY, endX, endY) = box
+                        (mask, withoutMask) = pred
+                        label = "Mask" if mask > withoutMask else "No Mask"
+                        probability = max(mask, withoutMask) * 100
+                        latest_prediction["label"] = label
+                        latest_prediction["probability"] = probability
+                        label_text = "{}: {:.2f}%".format(label, probability)
+                        color = (0, 255, 0) if label == "Mask" else (0, 0, 255)
+                        cv2.putText(frame, label_text, (startX, startY - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 2)
+                        cv2.rectangle(frame, (startX, startY), (endX, endY), color, 2)
+                    ret, buffer = cv2.imencode('.jpg', frame)
+                    frame = buffer.tobytes()
+                    yield (b'--frame\r\n'
+                        b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+        
+        else:
+            print(f"Failed to connect to the stream. Status code: {response.status_code}")
 
 
 
@@ -224,12 +263,18 @@ def generate_single_frame():
             cv2.rectangle(frame, (startX, startY), (endX, endY), color, 2)
 
         # Save the captured frame to the static folder
+        # Format the current date and time
+        # current_time = datetime.now().strftime("%Y%m%d_%H%M%S")
+
+        # Use the formatted date and time in the file path
+        # image_path = os.path.join("static/images", f"captured_image_{current_time}.jpg")
+
         image_path = os.path.join("static/images", "captured_image.jpg")
         cv2.imwrite(image_path, frame)
 
         # Get the temperature
-        temperature = 35.5
-        store_data(temperature, label, image_path)
+        # temperature = 35.5
+        # store_data(temperature, label, image_path)
 
         # Encode the frame in JPEG format
         ret, buffer = cv2.imencode('.jpg', frame)
@@ -240,59 +285,6 @@ def generate_single_frame():
         print(f"Error in processing single frame: {e}")
         return None
 
-
-
-## This is the code made by JingTong
-
-# def generate_single_frame():
-#     try:
-#         server_socket.listen(1)
-#         print("Waiting for connection from Raspberry Pi...")
-#         client_socket, addr = server_socket.accept()
-#         print(f"Connected to {addr}")
-#         # Receive the image size first
-#         image_size = int.from_bytes(client_socket.recv(4), 'big')
-
-#         # Receive the image data
-#         image_data = b''
-#         while len(image_data) < image_size:
-#             packet = client_socket.recv(4096)
-#             if not packet:
-#                 break
-#             image_data += packet
-
-#         # Save the received image to the specified path
-#         with open("image.jpg", 'wb') as image_file:
-#             image_file.write(image_data)
-        
-#         frame = cv2.imread("image.jpg")
-#         # Detect faces and predict mask/no mask
-#         locs, preds = detect_and_predict_mask(frame, faceNet, model)
-
-#         # Loop over the detected face locations and their corresponding locations
-#         for (box, pred) in zip(locs, preds):
-#             (startX, startY, endX, endY) = box
-#             (mask, withoutMask) = pred
-#             # Determine the class label and color we'll use to draw the bounding box and text
-#             label = "Mask" if mask > withoutMask else "No Mask"
-#             color = (0, 255, 0) if label == "Mask" else (0, 0, 255)
-#             # Include the probability in the label
-#             label = "{}: {:.2f}%".format(label, max(mask, withoutMask) * 100)
-#             # Display the label and bounding box rectangle on the output frame
-#             cv2.putText(frame, label, (startX, startY - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 2)
-#             cv2.rectangle(frame, (startX, startY), (endX, endY), color, 2)
-
-#         # Encode the frame in JPEG format
-#         ret, buffer = cv2.imencode('.jpg', frame)
-#         frame = buffer.tobytes()
-#         return frame
-
-#     except Exception as e:
-#         print(f"Error in processing single frame: {e}")
-#         return None
-#     finally:
-#         client_socket.close()
-#         # server_socket.close()
 
 @app.route('/')
 def index():
@@ -309,28 +301,33 @@ def image_feed():
         return Response(status=500)
     return Response(frame, mimetype='image/jpeg')
 
+    
+
 @app.route('/entry', methods=['POST'])
 def add_entry():
     try:
-        temperature = request.form['temperature']
-        mask_status = request.form['mask_status'].lower() == 'true'
-        image = request.files['image']
+        temperature = float(request.form.get('temperature'))  # Ensure this is a float
+        mask_status = request.form.get('mask_status') == 'True'  # Convert to boolean
+        final_result = request.form.get('final_result') == 'True'  # Convert to boolean
+        image_path = request.files['image'].filename  # Adjust as necessary
 
-        if not os.path.exists(app.config['UPLOAD_FOLDER']):
-            os.makedirs(app.config['UPLOAD_FOLDER'])
+        # Log the received data
+        print(f"Received: temperature={temperature}, mask_status={mask_status}, final_result={final_result}, image_path={image_path}")
 
-        # Save the image file
-        image_path = os.path.join(app.config['UPLOAD_FOLDER'], image.filename)
-        image.save(image_path)
+        new_entry = Entry(
+            temperature=temperature,
+            mask_status=mask_status,
+            final_result=final_result,
+            image_path=image_path
+        )
 
-        # Create a new Entry instance and save it to the database
-        new_entry = Entry(temperature=float(temperature), mask_status=mask_status, image_path=image_path)
         db.session.add(new_entry)
         db.session.commit()
-
-        return jsonify({'message': 'Entry added successfully'}), 201
+        return jsonify({"message": "Entry added successfully."}), 201
     except Exception as e:
-        return jsonify({'error': str(e)}), 400
+        print(f"Error: {e}")
+        return jsonify({"error": str(e)}), 500
+
 
 @app.route('/entries', methods=['GET'])
 def get_entries():
@@ -342,6 +339,7 @@ def get_entries():
             'timestamp': entry.timestamp,
             'temperature': entry.temperature,
             'mask_status': entry.mask_status,
+            'final_result': entry.final_result,
             'image_path': entry.image_path
         })
     return jsonify(results)
@@ -371,23 +369,58 @@ def get_current_image():
 def get_latest_prediction():
     return jsonify(latest_prediction)
 
+    
+
 
 @app.route('/images/<filename>')
 def get_image(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
-# def capture_and_upload():
-#     while True:
-#         frame_data = generate_single_frame()
-#         if frame_data is None:
-#             print("Error capturing frame.")
-#             time.sleep(1)  # Wait before trying again
-#             continue
-#         time.sleep(1) 
+
+
+def capture_screenshot():
+
+    # Get the current time for the screenshot filename
+    current_time = datetime.now().strftime("%Y%m%d_%H%M%S")
+    screenshot_filename = f"screenshot_{current_time}.png"
+
+    # Capture the screenshot
+    screenshot = pyautogui.screenshot()
+    screenshot.save(screenshot_filename)
+    print(f"Screenshot saved as {screenshot_filename}")
+
+
+
+
+
+
+
 
 
 if __name__ == "__main__":
-    # thread = threading.Thread(target=capture_and_upload, daemon=True)
-    # thread.start()
-    # app.run(host='172.20.10.11', port=5000)
-    app.run(host='0.0.0.0', port=5000)
+
+    # app.run(host='0.0.0.0', port=5000)
+
+    # capture_screenshot_from_localhost()
+
+        # Start the Flask app in a separate thread
+    flask_thread = threading.Thread(target=app.run, kwargs={'host': '0.0.0.0', 'port': 5000})
+    flask_thread.start()
+
+
+    try:
+        # Capture the screenshot in a loop
+        while True:
+            if latest_prediction["label"]:
+                screenshot_path = capture_specified_area("real-time", "last")
+                
+
+                # upload the data to the database
+                store_data(screenshot_path)
+            else:
+                continue
+    except KeyboardInterrupt:
+        print("Stopping screenshot capture.")
+
+    # Wait for the Flask app to finish
+    flask_thread.join()
