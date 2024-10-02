@@ -1,12 +1,19 @@
 .charts-container {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column; /* Stack the sections vertically */
+  gap: 40px; /* Space between the sections */
   padding: 20px;
   width: 100%;
 }
 
+.upper-section, .lower-section {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
 .chart-wrapper {
-  width: 48%; /* Adjust this value to control the width of each chart */
+  width: 48%; /* Controls the width of each chart */
 }
 
 .chart-wrapper h2 {

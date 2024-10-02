@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Column } from '@ant-design/plots';
+import { Column, Pie } from '@ant-design/plots';
 import { forEach, groupBy } from 'lodash';
-import maskData from '../../data/mask_data.json';
-import tempData from '../../data/temp_data.json';
+// import maskData from '../../data/mask_data.json';
+// import tempData from '../../data/temp_data.json';
+import maskData from '../../data/mask_data_fake.json';
+import tempData from '../../data/temp_data_fake.json';
+import dailyEntriesData from '../../data/daily_entry_fake.json';
 import './data.css';
 
 function Data() {
@@ -65,8 +68,28 @@ function Data() {
     annotations: createAnnotations(tempChartData),
   };
 
-  return (
-    <div className="charts-container">
+const pieChartConfig = {
+    data: dailyEntriesData.data,
+    angleField: 'value',
+    colorField: 'type',
+    radius: 0.8,
+    label: {
+      text: (d) => `${d.type}\n ${d.value}`,
+      position: 'spider',
+    },
+    legend: {
+      color: {
+        title: false,
+        position: 'right',
+        rowPadding: 5,
+      },
+    },
+  };
+
+return (
+  <div className="charts-container">
+    {/* Upper Section with two column charts */}
+    <div className="upper-section">
       <div className="chart-wrapper">
         <h2>Mask Data Visualization</h2>
         <Column {...maskConfig} />
@@ -76,7 +99,17 @@ function Data() {
         <Column {...tempConfig} />
       </div>
     </div>
-  );
+
+    {/* Lower Section with two pie charts */}
+    <div className="lower-section">
+      <div className="chart-wrapper">
+        <h2>Daily Entries Chart</h2>
+        <Pie {...pieChartConfig} />
+      </div>
+    </div>
+  </div>
+);
+
 }
 
 export default Data;
