@@ -5,7 +5,6 @@ from flask_cors import CORS
 from get_data_from_finalResult import store_data
 from screenshot_specific_area import capture_specified_area
 from convert_db_to_dashboard import convert_data_to_jason
-
 from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 from tensorflow.keras.preprocessing.image import img_to_array
 from tensorflow.keras.models import load_model
@@ -154,14 +153,14 @@ def generate_frames():
                         if latest_prediction["label"] == "Mask" and latest_prediction["temperature"] <= 37:
                             latest_prediction["final_result"] = "Open the door"
                             latest_prediction["result"] = True
-                            latest_prediction["message"] = "Welcome"
+                            latest_prediction["message"] = "Welcome."
                         else:
                             latest_prediction["final_result"] = "Close the door"
                             latest_prediction["result"] = False
                             if latest_prediction["label"] == "No Mask":
-                                latest_prediction["message"] = "Sorry, you must wear a mask"
+                                latest_prediction["message"] = "Sorry, you must wear a mask."
                             else:
-                                latest_prediction["message"] = "Sorry, your temperatue is higher than 37C"
+                                latest_prediction["message"] = "Sorry, your temperatue is higher than 37C."
                         print(latest_prediction)
                         # Draw label and bounding box
                         label_text = "{}: {:.2f}%".format(label, probability)
