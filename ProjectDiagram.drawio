@@ -293,7 +293,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="dj8XRFqD-y6cjQ53Qm8I" name="component diagram">
-    <mxGraphModel dx="1816" dy="1678" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2261" dy="1907" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -334,7 +334,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="Gmq6YplB2k_XXYcuNW31-3" value="Camera" style="html=1;dropTarget=0;whiteSpace=wrap;" parent="1" vertex="1">
-          <mxGeometry x="160" y="-120" width="180" height="90" as="geometry" />
+          <mxGeometry x="160" y="-20" width="180" height="90" as="geometry" />
         </mxCell>
         <mxCell id="Gmq6YplB2k_XXYcuNW31-4" value="" style="shape=module;jettyWidth=8;jettyHeight=4;" parent="Gmq6YplB2k_XXYcuNW31-3" vertex="1">
           <mxGeometry x="1" width="20" height="20" relative="1" as="geometry">
@@ -342,7 +342,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="Gmq6YplB2k_XXYcuNW31-7" value="IR sensor" style="html=1;dropTarget=0;whiteSpace=wrap;" parent="1" vertex="1">
-          <mxGeometry x="370" y="-120" width="180" height="90" as="geometry" />
+          <mxGeometry x="370" y="-20" width="180" height="90" as="geometry" />
         </mxCell>
         <mxCell id="Gmq6YplB2k_XXYcuNW31-8" value="" style="shape=module;jettyWidth=8;jettyHeight=4;" parent="Gmq6YplB2k_XXYcuNW31-7" vertex="1">
           <mxGeometry x="1" width="20" height="20" relative="1" as="geometry">
@@ -394,7 +394,7 @@
         </mxCell>
         <mxCell id="Gmq6YplB2k_XXYcuNW31-26" value="capture video stream&lt;br&gt;and provide api" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="Gmq6YplB2k_XXYcuNW31-23" vertex="1" connectable="0">
           <mxGeometry x="0.2933" relative="1" as="geometry">
-            <mxPoint x="11" y="-35" as="offset" />
+            <mxPoint x="-74" y="-15" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="Gmq6YplB2k_XXYcuNW31-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.378;entryY=1.008;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="Gmq6YplB2k_XXYcuNW31-1" target="Gmq6YplB2k_XXYcuNW31-7" edge="1">
@@ -402,7 +402,7 @@
         </mxCell>
         <mxCell id="Gmq6YplB2k_XXYcuNW31-25" value="Read&lt;div&gt;and provide api&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="Gmq6YplB2k_XXYcuNW31-24" vertex="1" connectable="0">
           <mxGeometry x="0.0312" y="1" relative="1" as="geometry">
-            <mxPoint x="-3" y="-34" as="offset" />
+            <mxPoint x="-3" y="-24" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="Gmq6YplB2k_XXYcuNW31-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.654;entryY=1.026;entryDx=0;entryDy=0;entryPerimeter=0;exitX=1;exitY=0.75;exitDx=0;exitDy=0;" parent="1" source="Gmq6YplB2k_XXYcuNW31-19" target="bXanXX7PxoaxNvGyuVwN-1" edge="1">
