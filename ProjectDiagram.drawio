@@ -611,7 +611,7 @@
           <mxGeometry x="465" y="940" width="70" height="30" as="geometry" />
         </mxCell>
         <mxCell id="HkmHQtPKiFBhUHjtNTPS-10" value="&lt;b&gt;Frontend&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
-          <mxGeometry x="705" y="940" width="80" height="30" as="geometry" />
+          <mxGeometry x="771.25" y="940" width="80" height="30" as="geometry" />
         </mxCell>
         <mxCell id="HkmHQtPKiFBhUHjtNTPS-11" value="&lt;b&gt;Temperature Thread&lt;/b&gt;:&lt;div&gt;periodically reading termperature sensor&#39;s data&lt;/div&gt;&lt;div&gt;loop forever&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;gradientColor=#FFFFFF;" vertex="1" parent="1">
           <mxGeometry x="85" y="1020" width="230" height="60" as="geometry" />
