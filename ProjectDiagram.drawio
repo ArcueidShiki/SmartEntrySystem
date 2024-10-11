@@ -446,7 +446,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="KR3_7UHlFYzC7LTaU2YQ" name="status diagram">
-    <mxGraphModel dx="1646" dy="422" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2022" dy="615" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -772,7 +772,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="HkmHQtPKiFBhUHjtNTPS-58" value="&lt;div style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;b&gt;process real-time data in memory&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;b&gt;periodically save data in database&lt;/b&gt;&lt;/div&gt;" style="text;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="400" y="1240" width="240" height="40" as="geometry" />
+          <mxGeometry x="405" y="1240" width="240" height="40" as="geometry" />
         </mxCell>
         <mxCell id="HkmHQtPKiFBhUHjtNTPS-59" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
@@ -781,7 +781,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="HkmHQtPKiFBhUHjtNTPS-61" value="&lt;b&gt;&lt;font color=&quot;#009900&quot;&gt;with mask&lt;br&gt;green frame&lt;/font&gt;&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
-          <mxGeometry x="525" y="1193" width="90" height="40" as="geometry" />
+          <mxGeometry x="540" y="1190" width="90" height="40" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
