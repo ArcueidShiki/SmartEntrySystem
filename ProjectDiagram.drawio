@@ -446,7 +446,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="KR3_7UHlFYzC7LTaU2YQ" name="status diagram">
-    <mxGraphModel dx="1646" dy="422" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1510" dy="351" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -602,7 +602,7 @@
           <mxGeometry x="375" y="940" width="305" height="500" as="geometry" />
         </mxCell>
         <mxCell id="HkmHQtPKiFBhUHjtNTPS-7" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fillStyle=auto;gradientColor=#FFFFFF;" vertex="1" parent="1">
-          <mxGeometry x="950" y="980" width="250" height="360" as="geometry" />
+          <mxGeometry x="740" y="950" width="250" height="360" as="geometry" />
         </mxCell>
         <mxCell id="HkmHQtPKiFBhUHjtNTPS-8" value="&lt;b&gt;Raspberry Pi&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
           <mxGeometry x="145" y="950" width="100" height="30" as="geometry" />
@@ -611,7 +611,7 @@
           <mxGeometry x="465" y="940" width="70" height="30" as="geometry" />
         </mxCell>
         <mxCell id="HkmHQtPKiFBhUHjtNTPS-10" value="&lt;b&gt;Frontend&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
-          <mxGeometry x="1031.25" y="980" width="80" height="30" as="geometry" />
+          <mxGeometry x="821.25" y="950" width="80" height="30" as="geometry" />
         </mxCell>
         <mxCell id="HkmHQtPKiFBhUHjtNTPS-39" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="HkmHQtPKiFBhUHjtNTPS-11" target="HkmHQtPKiFBhUHjtNTPS-35">
           <mxGeometry relative="1" as="geometry" />
@@ -697,18 +697,21 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="HkmHQtPKiFBhUHjtNTPS-26" value="&lt;b&gt;Display real-time data including processed video and temperature&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;gradientColor=#FFFFFF;" vertex="1" parent="1">
-          <mxGeometry x="962.5" y="1060" width="217.5" height="60" as="geometry" />
+          <mxGeometry x="752.5" y="1030" width="217.5" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="HkmHQtPKiFBhUHjtNTPS-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="HkmHQtPKiFBhUHjtNTPS-27" target="HkmHQtPKiFBhUHjtNTPS-25">
+        <mxCell id="HkmHQtPKiFBhUHjtNTPS-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
+            <mxPoint x="756.25" y="1159" as="sourcePoint" />
+            <mxPoint x="645" y="1399" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="680" y="1160" />
-              <mxPoint x="680" y="1250" />
+              <mxPoint x="730" y="1159" />
+              <mxPoint x="730" y="1400" />
+              <mxPoint x="645" y="1400" />
             </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="HkmHQtPKiFBhUHjtNTPS-27" value="&lt;b&gt;Display statistic information&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;gradientColor=#FFFFFF;" vertex="1" parent="1">
-          <mxGeometry x="966.25" y="1170" width="217.5" height="60" as="geometry" />
+          <mxGeometry x="756.25" y="1140" width="217.5" height="60" as="geometry" />
         </mxCell>
         <mxCell id="HkmHQtPKiFBhUHjtNTPS-30" value="display result on LCD" style="rounded=1;whiteSpace=wrap;html=1;arcSize=40;fontColor=#000000;fillColor=#ffffc0;strokeColor=#ff0000;gradientColor=#FFFFFF;" vertex="1" parent="1">
           <mxGeometry x="80" y="1300" width="140" height="40" as="geometry" />
