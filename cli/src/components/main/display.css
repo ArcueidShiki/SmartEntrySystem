@@ -15,7 +15,7 @@
 }
 
 .upper-section img {
-    width: 50%;          /* Make the image take full width of its container */
+    width: 100%;          /* Make the image take full width of its container */
     max-width: 800px;      /* Set a maximum width to prevent the image from being too large */
     height: auto;          /* Maintain aspect ratio */
     margin: 0 auto;        /* Center the image horizontally */
