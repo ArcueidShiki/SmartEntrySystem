@@ -1,0 +1,15 @@
+{
+    "data":[
+        { "temperature": "31°C", "value": 5 },
+        { "temperature": "21°C", "value": 8 },
+        { "temperature": "22°C", "value": 1 },
+        { "temperature": "23°C", "value": 2 },
+        { "temperature": "24°C", "value": 3 },
+        { "temperature": "25°C", "value": 4 },
+        { "temperature": "26°C", "value": 6 },
+        { "temperature": "27°C", "value": 7 },
+        { "temperature": "28°C", "value": 5 },
+        { "temperature": "29°C", "value": 2 },
+        { "temperature": "30°C", "value": 1 }
+]
+}
