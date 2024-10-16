@@ -24,7 +24,7 @@ weightsPath = "face_detector/res10_300x300_ssd_iter_140000.caffemodel"
 faceNet = cv2.dnn.readNet(prototxtPath, weightsPath)
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_socket.bind(("0.0.0.0", 8000))
-RSP_IP = "172.20.10.4"
+RSP_IP = "172.20.10.3"
 
 CORS(app)
 
@@ -106,7 +106,7 @@ def generate_frames():
 
     while True:
         # Fetch the video stream
-        url = 'http://192.168.1.106:8000/stream.mjpg'
+        url = 'http://'+ RSP_IP + ':8000/stream.mjpg'
         response = requests.get(url, stream=True)
         bytes = b''
         
@@ -126,7 +126,7 @@ def generate_frames():
                     
                     # Refetch temperature during each frame processing loop
                     temperature = 0.0
-                    temp_response = requests.get("http://192.168.1.106:8000/temp")
+                    temp_response = requests.get("http://" + RSP_IP + ":8000/temp")
                     if temp_response.status_code == 200:
                         temperature = temp_response.json().get("temperature")
                         # print(f"Temperature: {temperature}")
