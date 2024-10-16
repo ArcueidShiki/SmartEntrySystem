@@ -3,10 +3,17 @@ import { Column, Pie } from '@ant-design/plots';
 import { forEach, groupBy } from 'lodash';
 // import maskData from '../../data/mask_data.json';
 // import tempData from '../../data/temp_data.json';
+<<<<<<< HEAD
 import maskData from '../../data/mask_data_fake.json';
 import tempData from '../../data/temp_data_fake.json';
 import dailyEntriesData from '../../data/daily_entry_fake.json';
 import dailyTempData from '../../data/daily_temp_fake.json';
+=======
+import maskData from '../../data/mask_data_test.json';
+import tempData from '../../data/temp_data_test.json';
+import dailyEntriesData from '../../data/daily_entry_test.json';
+import dailyTempData from '../../data/daily_temp_test.json';
+>>>>>>> 57d159cc56b00e6841b0b7433f9008b17914d8d9
 import './data.css';
 
 function Data() {
