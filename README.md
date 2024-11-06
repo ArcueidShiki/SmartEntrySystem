@@ -1,6 +1,6 @@
 # SmartEntrySystem
 
-CITS5506 Group Project Repo
+Project Report and documentation: https://docs.google.com/document/d/1zpW--Lt5MXqfu0l3Y65MafO_VcLabHoI--xELOCeGbg/edit?tab=t.0#heading=h.z6ne0og04bp5
 
 ## Project Title: IOT Temperature & Mask Scan Entry System
 
